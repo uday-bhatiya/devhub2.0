@@ -4,8 +4,8 @@ import Cards from "./Card"
 
 const HomeFeed = () => {
     return (
-        <Tabs defaultValue="account" className="w-full h-full">
-            <TabsList className="grid    grid-cols-3 w-[400px]">
+        <Tabs defaultValue="all" className="w-full h-full">
+            <TabsList className="grid grid-cols-3 w-[400px]">
                 <TabsTrigger value="all">All</TabsTrigger>
                 <TabsTrigger value="posts">Posts</TabsTrigger>
                 <TabsTrigger value="collabs">Collabs</TabsTrigger>

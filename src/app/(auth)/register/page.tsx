@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { registerUser } from "@/lib/api"
 import { useRouter } from "next/navigation"
-
+import { toast } from "sonner"
 
 const formSchema = z.object({
     fullName: z.string().min(3, "Full name is required"),
@@ -43,11 +43,10 @@ export default function page() {
         console.log(values);
         try {
             const res = await registerUser(values);
-            alert("Registration successful! Please log in.");
+            toast.success("Registration successful!");
             router.push("/login");
-        } catch (error :any) {
-            const msg = error.response?.data?.error || "Register failed"
-            alert(msg)
+        } catch (error: any) {
+            toast.error(error.response?.data?.error || "Registration failed");
         }
     }
 

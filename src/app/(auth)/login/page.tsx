@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input"
 import { loginUser } from "@/lib/api"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/context/AuthContext"
+import { toast } from "sonner"
 
 const formSchema = z.object({
     email: z.string().email("Invalid email address").min(1, "Email is required"),
@@ -42,18 +43,18 @@ export default function page() {
         console.log(values);
         try {
             const res = await loginUser(values)
-            alert("Login successful!")
+            // alert("Login successful!")
+            toast.success("Login successful!");
             // console.log(res)
             setUser(res.data.user);
             router.push("/home");
         } catch (error: any) {
-            const msg = error.response?.data?.error || "Login failed"
-            alert(msg)
+           toast.error(error.response?.data?.error || "Login failed");
         }
     }
 
     return (
-        <div className="flex items-center justify-center h-screen">
+        <div className="flex items-center flex-col justify-center h-screen gap-6">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-1/3">
                     <FormField

@@ -28,31 +28,30 @@ const Navbar = () => {
     }
 
     return (
-        <Menubar className="justify-between w-4xl px-6 py-5 border-b shadow-sm">
+        <Menubar className="justify-between w-full px-6 py-5 mx-20 my-3 border-b shadow-sm">
             <MenubarMenu>
-                <MenubarTrigger className="font-bold text-blue-600 text-lg">
+                <MenubarTrigger className="font-bold text-black text-lg">
                     <Link href="/home">DevHub 🚀</Link>
                 </MenubarTrigger>
             </MenubarMenu>
 
-            <MenubarMenu>
-                <MenubarTrigger>Explore</MenubarTrigger>
-                <MenubarContent>
-                    <MenubarItem>
+            <MenubarMenu >
+                <div className="flex items-center space-x-3">
+                    <MenubarTrigger>
                         <Link href="/home">Home</Link>
-                    </MenubarItem>
-                    <MenubarItem>
-                        <Link href="/collab">Collab Posts</Link>
-                    </MenubarItem>
-                    <MenubarItem>
-                        <Link href="/create-post">Create Post</Link>
-                    </MenubarItem>
-                </MenubarContent>
+                    </MenubarTrigger>
+                    <MenubarTrigger>
+                        <Link href="/collabs">Collabs</Link>
+                    </MenubarTrigger>
+                    <MenubarTrigger>
+                        <Link href="/posts">Posts</Link>
+                    </MenubarTrigger>
+                </div>
             </MenubarMenu>
 
             <MenubarMenu>
                 <MenubarTrigger>
-                    <Avatar className="h-7 w-7">
+                    <Avatar className="h-7 w-7 cursor-pointer">
                         <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>

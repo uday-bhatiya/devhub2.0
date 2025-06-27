@@ -1,5 +1,7 @@
 "use client"
 
+import ActionBar from "@/components/ActionBar"
+import HomeFeed from "@/components/HomeFeed"
 import { useAuth } from "@/context/AuthContext"
 
 export default function HomePage() {
@@ -7,8 +9,12 @@ export default function HomePage() {
 
   return (
     <div className="w-full ">
-      <h1 className="text-3xl font-bold">Welcome back, {user?.fullName} 👋</h1>
-      <p className="text-muted-foreground mt-2">This is your dashboard home.</p>
+      <div>
+        <h1 className="text-4xl font-bold">Welcome back, {user?.fullName} 👋</h1>
+        <p className="text-muted-foreground mt-2 text-slate-500 ">Here's what's happening in the DevHub community.</p>
+      </div>
+      <ActionBar />
+      <HomeFeed />
     </div>
   )
 }

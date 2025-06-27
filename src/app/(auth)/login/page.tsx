@@ -45,7 +45,7 @@ export default function page() {
             alert("Login successful!")
             // console.log(res)
             setUser(res.data.user);
-            router.push("/");
+            router.push("/home");
         } catch (error: any) {
             const msg = error.response?.data?.error || "Login failed"
             alert(msg)

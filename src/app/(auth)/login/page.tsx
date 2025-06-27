@@ -14,6 +14,8 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { loginUser } from "@/lib/api"
+import { useRouter } from "next/navigation"
 
 const formSchema = z.object({
     email: z.string().email("Invalid email address").min(1, "Email is required"),
@@ -22,7 +24,10 @@ const formSchema = z.object({
     })
 })
 
-export default function FormDemo() {
+export default function page() {
+
+    const router = useRouter();
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -31,8 +36,16 @@ export default function FormDemo() {
         },
     })
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        console.log(values);
+        try {
+            const res = await loginUser(values)
+            alert("Login successful!")
+            router.push("/");
+        } catch (error: any) {
+            const msg = error.response?.data?.error || "Login failed"
+            alert(msg)
+        }
     }
 
     return (

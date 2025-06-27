@@ -14,6 +14,9 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { registerUser } from "@/lib/api"
+import { useRouter } from "next/navigation"
+
 
 const formSchema = z.object({
     fullName: z.string().min(3, "Full name is required"),
@@ -23,7 +26,10 @@ const formSchema = z.object({
     }),
 })
 
-export default function FormDemo() {
+export default function page() {
+
+    const router = useRouter();
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -33,8 +39,16 @@ export default function FormDemo() {
         },
     })
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        console.log(values);
+        try {
+            const res = await registerUser(values);
+            alert("Registration successful! Please log in.");
+            router.push("/login");
+        } catch (error :any) {
+            const msg = error.response?.data?.error || "Register failed"
+            alert(msg)
+        }
     }
 
     return (

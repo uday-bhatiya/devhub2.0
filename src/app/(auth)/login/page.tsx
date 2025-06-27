@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { loginUser } from "@/lib/api"
 import { useRouter } from "next/navigation"
+import { useAuth } from "@/context/AuthContext"
 
 const formSchema = z.object({
     email: z.string().email("Invalid email address").min(1, "Email is required"),
@@ -27,6 +28,7 @@ const formSchema = z.object({
 export default function page() {
 
     const router = useRouter();
+    const { setUser } = useAuth();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -41,6 +43,8 @@ export default function page() {
         try {
             const res = await loginUser(values)
             alert("Login successful!")
+            // console.log(res)
+            setUser(res.data.user);
             router.push("/");
         } catch (error: any) {
             const msg = error.response?.data?.error || "Login failed"

@@ -18,7 +18,7 @@ const ActionBar = () => {
     return (
         <div className="my-4 flex flex-wrap items-center gap-4 sm:gap-6">
             <Button className="w-full sm:w-40">
-                <Link href="/">Create Post</Link>
+                <Link href="/post/new">Create Post</Link>
             </Button>
             <Button className="w-full sm:w-40">
                 <Link href="/collab/new">Create Collab</Link>

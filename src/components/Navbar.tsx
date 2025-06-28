@@ -44,7 +44,7 @@ const Navbar = () => {
                         <Link href="/collab/all">Collabs</Link>
                     </MenubarTrigger>
                     <MenubarTrigger>
-                        <Link href="/posts">Posts</Link>
+                        <Link href="/post/all">Posts</Link>
                     </MenubarTrigger>
                 </div>
             </MenubarMenu>

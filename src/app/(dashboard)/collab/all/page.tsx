@@ -9,7 +9,7 @@ import { useAuth } from "@/context/AuthContext"
 export default function ExploreCollabPosts() {
 
   const [posts, setPosts] = useState([]);
-    const { user } = useAuth();
+  const { user } = useAuth();
 
   useEffect(() => {
     const load = async () => {

@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
     await connectDB();
 
     const user = await getUserFromToken(req)
-    console.log(user)
+    
     if (!user) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 })
     }

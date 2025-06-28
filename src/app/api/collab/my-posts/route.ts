@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server"
 import CollabPost from "@/models/CollabPost"
 import { getUserFromToken } from "@/lib/auth"
-import { connect } from "http2"
 import { connectDB } from "@/lib/db"
 
 export async function GET(req: Request) {

@@ -1,26 +1,35 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import ApplyModal from "./ApplyModal"
 
 type CollabCardProps = {
-    id: string
-    title: string
-    description: string
-    skills: string[]
-    creatorName: string
-    postedAt: string
-    onApply?: () => void
+  id: string
+  title: string
+  description: string
+  skills: string[]
+  creatorName: string
+  postedAt: string
+  onApply?: () => void
+  applicants: { user: string }[]
+  currentUserId: string
 }
 
 const CollabCard = ({
-    id,
-    title,
-    description,
-    skills,
-    creatorName,
-    postedAt,
-    onApply,
+  id,
+  title,
+  description,
+  skills,
+  creatorName,
+  postedAt,
+  onApply,
+  applicants,
+  currentUserId,
+
 }: CollabCardProps) => {
- return (
+
+  const alreadyApplied = applicants.some(app => app.user === currentUserId)
+
+  return (
     <Card className="flex flex-row justify-between items-start w-[48%] px-6 py-4">
       <div className="flex flex-col gap-2">
         <CardHeader className="p-0">
@@ -41,7 +50,13 @@ const CollabCard = ({
         </CardContent>
       </div>
       <div className="pt-4">
-        <Button onClick={onApply}>Apply</Button>
+        {alreadyApplied ? (
+          <Button disabled>
+            Already Applied
+          </Button>
+        ) : (
+          <ApplyModal postId={id} />
+        )}
       </div>
     </Card>
   )

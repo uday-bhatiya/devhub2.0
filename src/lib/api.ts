@@ -20,3 +20,5 @@ export const logoutUser = () => axios.post("/api/auth/logout");
 export const createCollabPost = (data: any) => axios.post("/api/collab/create", data);
 
 export const fetchPublicCollabPosts = () => axios.get("/api/collab/all");
+
+export const applyToCollabPost = (postId: string, message: string) => axios.post(`/api/collab/apply/${postId}`, { message });

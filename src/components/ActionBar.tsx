@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "./ui/input"
 import { Search } from "lucide-react"
+import Link from "next/link"
 
 const ActionBar = () => {
     const [search, setSearch] = useState("")
@@ -16,8 +17,12 @@ const ActionBar = () => {
 
     return (
         <div className="my-4 flex flex-wrap items-center gap-4 sm:gap-6">
-            <Button className="w-full sm:w-40">Create Post</Button>
-            <Button className="w-full sm:w-40">Create Collab</Button>
+            <Button className="w-full sm:w-40">
+                <Link href="/">Create Post</Link>
+            </Button>
+            <Button className="w-full sm:w-40">
+                <Link href="/collab/new">Create Collab</Link>
+            </Button>
 
             <div className="flex gap-2 items-center justify-center">
                 <div className="flex w-full sm:w-auto items-center gap-2 border rounded-md px-3 bg-white shadow-sm">

@@ -1,5 +1,6 @@
 import axios from "@/lib/axios"
 
+// Auth
 export const registerUser = (data: {
   fullName: string
   email: string
@@ -14,3 +15,8 @@ export const loginUser = (data: {
 export const getCurrentUser = () => axios.get("/api/auth/me");
 
 export const logoutUser = () => axios.post("/api/auth/logout");
+
+// Collab
+export const createCollabPost = (data: any) => axios.post("/api/collab/create", data);
+
+export const fetchPublicCollabPosts = () => axios.get("/api/collab/all");

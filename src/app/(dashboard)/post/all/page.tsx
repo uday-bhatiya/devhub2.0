@@ -1,7 +1,6 @@
 "use client"
 
-import CollabCard from "@/components/CollabCard"
-import { fetchPublicCollabPosts, fetchPublicPosts } from "@/lib/api"
+import { fetchPublicPosts } from "@/lib/api"
 import { useEffect, useState } from "react"
 import { formatDistanceToNow } from "date-fns"
 import { useAuth } from "@/context/AuthContext"

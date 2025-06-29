@@ -1,6 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import ApplyModal from "./ApplyModal"
 import Link from "next/link"
 
 type PostCardProps = {
@@ -21,6 +20,7 @@ const PostCard = ({
     postedAt,
 
 }: PostCardProps) => {
+    console.log(id)
 
     return (
         <Card className="flex flex-row justify-between items-start w-[48%] px-6 py-4">

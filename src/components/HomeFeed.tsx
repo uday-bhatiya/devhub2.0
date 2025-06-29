@@ -1,10 +1,9 @@
 "use client"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import Cards from "./Card"
 import { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { fetchPublicCollabPosts } from "@/lib/api";
+import { fetchPublicCollabPosts, fetchPublicPosts } from "@/lib/api";
 import CollabCard from "./CollabCard";
 import { formatDistanceToNow } from "date-fns";
 import Link from "next/link";
@@ -18,11 +17,12 @@ const HomeFeed = () => {
     const [posts, setPosts] = useState([]);
     const { user } = useAuth();
     console.log(posts)
+    console.log(collabPost)
 
     useEffect(() => {
         const load = async () => {
             const collabRes = await fetchPublicCollabPosts();
-            const postRes = await fetchPublicCollabPosts();
+            const postRes = await fetchPublicPosts();
             setCollabPost(collabRes.data.posts);
             setPosts(postRes.data.posts);
         }
@@ -64,10 +64,11 @@ const HomeFeed = () => {
                 {posts.slice(0, 4).map((post: any) => (
                     <PostCard
                         key={post._id}
+                        id={post._id}
                         title={post.title}
                         description={post.description.slice(0, 100) + "..."}
                         creatorName={post.creator?.fullName || "Anonymous"}
-                        postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })} id={""} image={[]} />
+                        postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })} image={[]} />
                 ))
                 }
 

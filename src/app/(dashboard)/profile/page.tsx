@@ -1,8 +1,15 @@
+"use client";
+
+import { useAuth } from '@/context/AuthContext';
 import React from 'react'
 
 const page = () => {
+
+  const { user } = useAuth();
+  console.log(user)
+
   return (
-    <div>page</div>
+    <div>{user?.fullName}</div>
   )
 }
 

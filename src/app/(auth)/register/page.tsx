@@ -17,6 +17,8 @@ import { Input } from "@/components/ui/input"
 import { registerUser } from "@/lib/api"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
+import { useAuth } from "@/context/AuthContext"
+
 
 const formSchema = z.object({
     fullName: z.string().min(3, "Full name is required"),
@@ -29,6 +31,7 @@ const formSchema = z.object({
 export default function page() {
 
     const router = useRouter();
+    const { setUser } = useAuth();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -44,7 +47,8 @@ export default function page() {
         try {
             const res = await registerUser(values);
             toast.success("Registration successful!");
-            router.push("/login");
+            setUser(res.data.user);
+            router.push("/profile");
         } catch (error: any) {
             toast.error(error.response?.data?.error || "Registration failed");
         }

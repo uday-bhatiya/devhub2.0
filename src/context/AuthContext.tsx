@@ -9,7 +9,8 @@ type User = {
   fullName?: string
   email: string
   avatar?: string
-  bio?: string
+  about?: string
+  heading?: string 
   skills?: string[]
 }
 

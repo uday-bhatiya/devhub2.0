@@ -48,7 +48,7 @@ export default function page() {
             const res = await registerUser(values);
             toast.success("Registration successful!");
             setUser(res.data.user);
-            router.push("/profile");
+            router.push("/user/edit-profile");
         } catch (error: any) {
             toast.error(error.response?.data?.error || "Registration failed");
         }

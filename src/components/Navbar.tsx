@@ -52,8 +52,8 @@ const Navbar = () => {
             <MenubarMenu>
                 <MenubarTrigger>
                     <Avatar className="h-7 w-7 cursor-pointer">
-                        <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                        <AvatarFallback>CN</AvatarFallback>
+                        <AvatarImage src={user?.avatar || ""} />
+                        <AvatarFallback>{user?.fullName ? user.fullName.charAt(0) : ""}</AvatarFallback>
                     </Avatar>
                 </MenubarTrigger>
                 <MenubarContent>

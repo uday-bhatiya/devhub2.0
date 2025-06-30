@@ -10,7 +10,7 @@ type User = {
   email: string
   avatar?: string
   about?: string
-  heading?: string 
+  headline?: string 
   skills?: string[]
 }
 

@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
   
     const posts = await Post.find({ owner: user._id })
       .sort({ createdAt: -1 })
-      .populate("owner", "fullName email")
+      .populate("owner", "fullName email username")
   
     return NextResponse.json({ posts })
   } catch (error) {

@@ -26,7 +26,7 @@ const PostCard = ({
         <Card className="flex flex-row justify-between items-start w-[48%] px-6 py-4">
             <div className="flex flex-col gap-2">
                 <CardHeader className="p-0">
-                    <CardTitle className="text-lg font-bold text-blue-600">[Post] {title}</CardTitle>
+                    <CardTitle className="text-lg font-bold text-blue-600"><Link href={`/post/${id}`}>[Post] {title}</Link></CardTitle>
                     <CardDescription className="text-gray-600">{description}</CardDescription>
                 </CardHeader>
                 <CardContent className="p-0 flex flex-col gap-2 mt-2">

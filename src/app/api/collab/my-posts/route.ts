@@ -13,7 +13,8 @@ export async function GET(req: Request) {
     }
 
 const myPosts = await CollabPost.find({ creator: user._id })
-  .populate("applicants.user", "fullName email avatar")
+  .populate("applicants.user", "fullName email avatar username")
+  .populate("creator", "fullName email avatar username")
   .sort({ createdAt: -1 })
 
     return NextResponse.json({ posts: myPosts }, { status: 200 })

@@ -18,6 +18,7 @@ export async function PATCH(req: NextRequest) {
             fullName: body.fullName,
             username: body.username,
             email: body.email,
+            headline: body.headline || '',
             about: body.about || '',
             skills: body.skills || [],
         }

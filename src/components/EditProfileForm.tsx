@@ -18,17 +18,18 @@ const formSchema = z.object({
   username: z.string().min(3),
   email: z.string().email(),
   about: z.string().optional(),
-  heading: z.string().optional(),
+  headline: z.string().optional(),
   skills: z.string().optional(),
 })
 
 type FormData = z.infer<typeof formSchema>
 
-export default function EditProfileForm() {
+ const EditProfileForm = () => {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
 
   const { user } = useAuth() 
+  console.log("first", user)
   
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -37,7 +38,7 @@ export default function EditProfileForm() {
       username: '',
       email: '',
       about: '',
-      heading: '',
+      headline: '',
       skills: '',
     },
   })
@@ -50,7 +51,7 @@ export default function EditProfileForm() {
           username: user?.username || '',
           email: user?.email,
           about: user?.about || '',
-          heading: user?.heading || '',
+          headline: user?.headline || '',
           skills: user?.skills?.join(', ') || '',
         })
       } catch (err) {
@@ -61,9 +62,10 @@ export default function EditProfileForm() {
     }
 
     fetchProfile()
-  }, [form])
+  }, [user, form])
 
   const onSubmit = async (values: FormData) => {
+    console.log(values)
     try {
       const payload = {
         ...values,
@@ -90,7 +92,7 @@ export default function EditProfileForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Full Name</FormLabel>
-                <FormControl><Input disabled {...field} /></FormControl>
+                <FormControl><Input readOnly {...field} /></FormControl>
                 <FormMessage />
               </FormItem>
             )}
@@ -114,7 +116,7 @@ export default function EditProfileForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Email</FormLabel>
-                <FormControl><Input disabled type="email" {...field} /></FormControl>
+                <FormControl><Input readOnly type="email" {...field} /></FormControl>
                 <FormMessage />
               </FormItem>
             )}
@@ -122,7 +124,7 @@ export default function EditProfileForm() {
 
             <FormField
             control={form.control}
-            name="heading"
+            name="headline"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Headline</FormLabel>
@@ -161,3 +163,5 @@ export default function EditProfileForm() {
       </Form>
   )
 }
+
+export default EditProfileForm;

@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import ApplyModal from "./ApplyModal"
 import Link from "next/link"
+import { Badge } from "./ui/badge"
 
 type CollabCardProps = {
   id: string
@@ -40,8 +40,8 @@ const CollabCard = ({
         <CardContent className="p-0 flex flex-col gap-2 mt-2">
           <div className="flex gap-2 flex-wrap text-sm">
             {skills.map((skill, idx) => (
-              <span key={idx} className="bg-slate-100 text-slate-800 px-2 py-0.5 rounded-full text-xs">
-                {skill}
+              <span key={idx} className="text-xs">
+                <Badge>{skill}</Badge>
               </span>
             ))}
           </div>

@@ -1,11 +1,13 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { Badge } from "./ui/badge"
 
 type PostCardProps = {
     id: string
     title: string
     description: string
+    tags: string[]
     image: string[]
     creatorName: string
     postedAt: string
@@ -15,6 +17,7 @@ const PostCard = ({
     id,
     title,
     description,
+    tags,
     image,
     creatorName,
     postedAt,
@@ -30,6 +33,13 @@ const PostCard = ({
                     <CardDescription className="text-gray-600">{description}</CardDescription>
                 </CardHeader>
                 <CardContent className="p-0 flex flex-col gap-2 mt-2">
+                    <div className="flex gap-2 flex-wrap text-sm">
+                        {tags.map((tag, idx) => (
+                            <span key={idx} className="text-xs">
+                                <Badge>{tag}</Badge>
+                            </span>
+                        ))}
+                    </div>
                     <span className="text-xs text-muted-foreground">
                         Posted {postedAt} by {creatorName}
                     </span>

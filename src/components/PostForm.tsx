@@ -14,6 +14,7 @@ import { createPost } from "@/lib/api"
 const formSchema = z.object({
     title: z.string().min(3, "Title is required"),
     description: z.string().min(10, "Description must be at least 10 characters"),
+    tags: z.string().min(1, "Skills are required"),
     githubLink: z.string().url("GitHub link must be a valid URL"),
 })
 
@@ -28,6 +29,7 @@ const PostForm = () => {
         defaultValues: {
             title: "",
             description: "",
+            tags: "",
             githubLink: "",
         },
     });
@@ -36,6 +38,7 @@ const PostForm = () => {
         try {
             const payload = {
                 ...values,
+                tags: values.tags.split(",").map(tag => tag.trim())
             }
 
             const res = await createPost(payload);
@@ -73,6 +76,18 @@ const PostForm = () => {
                             <FormItem>
                                 <FormLabel>Description</FormLabel>
                                 <FormControl><Textarea placeholder="Describe your project and what you have build..." {...field} /></FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
+                    <FormField
+                        control={form.control}
+                        name="tags"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Tags (comma separated)</FormLabel>
+                                <FormControl><Input placeholder="React, Tailwind, Firebase" {...field} /></FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}

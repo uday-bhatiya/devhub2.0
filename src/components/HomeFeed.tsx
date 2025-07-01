@@ -54,6 +54,7 @@ const HomeFeed = () => {
                     <PostCard
                         key={post._id}
                         title={post.title}
+                        tags={post.tags}
                         description={post.description.slice(0, 100) + "..."}
                         creatorName={post.creator?.fullName || "Anonymous"}
                         postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })} id={""} image={[]} />
@@ -66,6 +67,7 @@ const HomeFeed = () => {
                         key={post._id}
                         id={post._id}
                         title={post.title}
+                        tags={post.tags}
                         description={post.description.slice(0, 100) + "..."}
                         creatorName={post.creator?.fullName || "Anonymous"}
                         postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })} image={[]} />

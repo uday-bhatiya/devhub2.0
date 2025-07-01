@@ -50,6 +50,7 @@ const ProfileFeed = () => {
                     <PostCard
                         key={post._id}
                         id={post._id}
+                        tags={post.tags}
                         title={post.title}
                         description={post.description.slice(0, 100) + "..."}
                         creatorName={post.owner?.username || "Anonymous"}

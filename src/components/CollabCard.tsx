@@ -41,7 +41,9 @@ const CollabCard = ({
           <div className="flex gap-2 flex-wrap text-sm">
             {skills.map((skill, idx) => (
               <span key={idx} className="text-xs">
-                <Badge>{skill}</Badge>
+                {skill.length > 0 ? (
+                  <Badge>{skill}</Badge>
+                ) : ("")}
               </span>
             ))}
           </div>

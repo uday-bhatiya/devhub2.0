@@ -28,6 +28,7 @@ export default function ExploreCollabPosts() {
       {posts.map((post: any) => (
           <PostCard
             key={post._id}
+            tags={post.tags}
             id={post._id}
             title={post.title}
             description={post.description.slice(0, 100) + "..."}

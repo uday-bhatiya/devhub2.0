@@ -23,6 +23,8 @@ export const fetchPublicCollabPosts = () => axios.get("/api/collab/all");
 
 export const applyToCollabPost = (postId: string, message: string) => axios.post(`/api/collab/apply/${postId}`, { message });
 
+export const fetchCollabPostById = (postId: string) => axios.get(`/api/collab/${postId}`);
+
 export const getAllUserCollabPosts = () => axios.get('/api/collab/my-posts');
 
 // Post

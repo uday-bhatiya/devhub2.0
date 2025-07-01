@@ -10,6 +10,7 @@ import { formatDistanceToNow } from 'date-fns'
 import { Heart, MessageCircle, } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from 'next/link'
+import { useAuth } from '@/context/AuthContext'
 
 type Post = {
     _id: string
@@ -21,12 +22,15 @@ type Post = {
     createdAt: string
     owner: {
         fullName: string
+        _id: string
     }
 }
 
 export default function SinglePostPage() {
     const [post, setPost] = useState<Post | null>(null)
-    const { id } = useParams()
+    const { id } = useParams();
+
+    const { user } = useAuth();
 
     console.log(post)
 
@@ -44,6 +48,8 @@ export default function SinglePostPage() {
     }, [id])
 
     if (!post) return <div className="text-center py-20">Loading...</div>
+
+    const isOwner = post.owner._id === user?._id
 
     return (
         <Card>
@@ -84,7 +90,7 @@ export default function SinglePostPage() {
 
                 <p className="text-sm text-muted-foreground pt-4">
                     Posted {formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })} by{" "}
-                    {post.owner.fullName}
+                    {isOwner ? "You" : post.owner.fullName}
                 </p>
             </CardContent>
 

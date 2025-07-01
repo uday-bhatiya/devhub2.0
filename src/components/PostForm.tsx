@@ -15,7 +15,7 @@ const formSchema = z.object({
     title: z.string().min(3, "Title is required"),
     description: z.string().min(10, "Description must be at least 10 characters"),
     tags: z.string().min(1, "Skills are required"),
-    githubLink: z.string().url("GitHub link must be a valid URL"),
+    githubUrl: z.string().url("GitHub link must be a valid URL"),
 })
 
 type FormValues = z.infer<typeof formSchema>
@@ -30,7 +30,7 @@ const PostForm = () => {
             title: "",
             description: "",
             tags: "",
-            githubLink: "",
+            githubUrl   : "",
         },
     });
 
@@ -95,7 +95,7 @@ const PostForm = () => {
 
                     <FormField
                         control={form.control}
-                        name="githubLink"
+                        name="githubUrl"
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>GitHub Repo</FormLabel>

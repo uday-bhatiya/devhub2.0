@@ -11,6 +11,7 @@ import { Heart, MessageCircle, } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from 'next/link'
 import { useAuth } from '@/context/AuthContext'
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 
 type Post = {
     _id: string
@@ -23,6 +24,8 @@ type Post = {
     owner: {
         fullName: string
         _id: string
+        username?: string
+        avatar?: string
     }
 }
 
@@ -54,6 +57,17 @@ export default function SinglePostPage() {
     return (
         <Card>
             <CardHeader>
+
+                <div className="flex items-center gap-3 mt-4">
+                    <Avatar className="h-10 w-10 cursor-pointer">
+                        <AvatarImage src={post.owner.avatar || ""} />
+                        <AvatarFallback>{user?.fullName ? user.fullName.charAt(0) : ""}</AvatarFallback>
+                    </Avatar>
+                    <div>
+                        <p className="font-semibold cursor-pointer">{post.owner.fullName}</p>
+                        <p className="text-sm text-muted-foreground cursor-pointer">@{post.owner.username || "user"}</p>
+                    </div>
+                </div>
                 <CardTitle className="text-2xl font-bold text-blue-600">
                     [Post] {post.title}
                 </CardTitle>

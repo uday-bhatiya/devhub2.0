@@ -7,8 +7,8 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     await connectDB();
 
     const post = await CollabPost.findById(params.id)
-      .populate("creator", "fullName email avatar")
-      .populate("applicants.user", "fullName email avatar")
+      .populate("creator", "fullName email avatar username")
+      .populate("applicants.user", "fullName email avatar username")
 
     if (!post) {
       return NextResponse.json({ message: "Post not found" }, { status: 404 })

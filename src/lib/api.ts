@@ -35,3 +35,7 @@ export const fetchPublicPosts = () => axios.get("/api/post/all");
 export const fetchPostById = (postId: string) => axios.get(`/api/post/${postId}`);
 
 export const getAllUserPosts = () => axios.get('/api/post/my-posts');
+
+// User
+
+export const fetchUserByUsername = (username: string) => axios.get(`/api/user/${username}`);

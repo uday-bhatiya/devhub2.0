@@ -58,6 +58,8 @@ export default function SinglePostPage() {
         <Card>
             <CardHeader>
 
+               <Link  href={`/user/${post.owner.username}`} className="flex items-center gap-3">
+
                 <div className="flex items-center gap-3 mt-4">
                     <Avatar className="h-10 w-10 cursor-pointer">
                         <AvatarImage src={post.owner.avatar || ""} />
@@ -68,6 +70,7 @@ export default function SinglePostPage() {
                         <p className="text-sm text-muted-foreground cursor-pointer">@{post.owner.username || "user"}</p>
                     </div>
                 </div>
+               </Link>
                 <CardTitle className="text-2xl font-bold text-blue-600">
                     [Post] {post.title}
                 </CardTitle>

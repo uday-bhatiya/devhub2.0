@@ -39,3 +39,5 @@ export const getAllUserPosts = () => axios.get('/api/post/my-posts');
 // User
 
 export const fetchUserByUsername = (username: string) => axios.get(`/api/user/${username}`);
+
+export const toggleFollowUser = (userId: string) => axios.patch(`/api/user/follow/${userId}`);

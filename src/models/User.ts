@@ -9,6 +9,8 @@ export interface IUser extends Document {
   headline?: string;
   about?: string;
   skills?: string[];
+  followers?: mongoose.Types.ObjectId[];
+  following?: mongoose.Types.ObjectId[];
 }
 
 const UserSchema = new Schema<IUser>(
@@ -21,6 +23,8 @@ const UserSchema = new Schema<IUser>(
     headline: String,
     about: String,
     skills: [String],
+    followers: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    following: [{ type: Schema.Types.ObjectId, ref: "User" }],
   },
   { timestamps: true }
 );

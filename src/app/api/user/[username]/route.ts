@@ -6,11 +6,15 @@ export async function GET(_: NextRequest, { params }: { params: { username: stri
     await connectDB();
 
     try {
-        const user = await User.findOne({ username: params.username }).select("-password -__v");
+        const user = await User.findOne({ username: params.username })
+        .populate("followers", "username fullName avatar")
+        .populate("following", "username fullName avatar")
+        .select("-password -__v");
         if (!user){
           return NextResponse.json({ message: "User not found" }, { status: 404 })  
         } 
 
+        console.log(user)
         return NextResponse.json({ user });
     } catch (error) {
         console.error("Error fetching user:", error)

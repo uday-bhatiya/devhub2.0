@@ -44,7 +44,7 @@ const HomeFeed = () => {
                         title={post.title}
                         description={post.description.slice(0, 100) + "..."}
                         skills={post.requiredSkills}
-                        creatorName={post.creator?.fullName || "Anonymous"}
+                        creator={post.creator?.username || "Anonymous"}
                         postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}
                         onApply={() => console.log("Apply to", post._id)}
                         applicants={post.applicants}
@@ -56,7 +56,7 @@ const HomeFeed = () => {
                         title={post.title}
                         tags={post.tags}
                         description={post.description.slice(0, 100) + "..."}
-                        creatorName={post.creator?.fullName || "Anonymous"}
+                        owner={post.owner?.username || "Anonymous"}
                         postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })} id={""} image={[]} />
                 ))
                 }
@@ -69,7 +69,7 @@ const HomeFeed = () => {
                         title={post.title}
                         tags={post.tags}
                         description={post.description.slice(0, 100) + "..."}
-                        creatorName={post.creator?.fullName || "Anonymous"}
+                        owner={post.owner?.fullName || "Anonymous"}
                         postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })} image={[]} />
                 ))
                 }
@@ -86,7 +86,7 @@ const HomeFeed = () => {
                         title={post.title}
                         description={post.description.slice(0, 100) + "..."}
                         skills={post.requiredSkills}
-                        creatorName={post.creator?.fullName || "Anonymous"}
+                        creator={post.creator?.username || "Anonymous"}
                         postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}
                         onApply={() => console.log("Apply to", post._id)}
                         applicants={post.applicants}

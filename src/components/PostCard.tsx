@@ -9,7 +9,7 @@ type PostCardProps = {
     description: string
     tags: string[]
     image: string[]
-    creatorName: string
+    owner: string
     postedAt: string
 }
 
@@ -19,7 +19,7 @@ const PostCard = ({
     description,
     tags,
     image,
-    creatorName,
+    owner,
     postedAt,
 
 }: PostCardProps) => {
@@ -40,9 +40,7 @@ const PostCard = ({
                             </span>
                         ))}
                     </div>
-                    <span className="text-xs text-muted-foreground">
-                        Posted {postedAt} by {creatorName}
-                    </span>
+                    <Link className="text-xs text-muted-foreground" href={`user/${owner}`}> Posted {postedAt} by {owner}</Link>
                 </CardContent>
             </div>
             <div className="pt-4">

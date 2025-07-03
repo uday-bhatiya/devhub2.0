@@ -7,7 +7,7 @@ export async function GET() {
     await connectDB();
 
     const posts = await CollabPost.find()
-      .populate("creator", "fullName email avatar") // show creator's details
+      .populate("creator", "fullName email avatar username") // show creator's details
       .sort({ createdAt: -1 })
 
     return NextResponse.json({ posts }, { status: 200 })

@@ -41,3 +41,7 @@ export const getAllUserPosts = () => axios.get('/api/post/my-posts');
 export const fetchUserByUsername = (username: string) => axios.get(`/api/user/${username}`);
 
 export const toggleFollowUser = (userId: string) => axios.patch(`/api/user/follow/${userId}`);
+
+export const getAllPublicUserPosts = (userId: string) => axios.get(`/api/user/posts/${userId}`);
+
+export const getAllPublicUserCollabPosts = (userId: string) => axios.get(`/api/user/collabs/${userId}`);

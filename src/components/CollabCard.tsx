@@ -8,7 +8,7 @@ type CollabCardProps = {
   title: string
   description: string
   skills: string[]
-  creatorName: string
+  creator: string
   postedAt: string
   onApply?: () => void
   applicants: { user: string }[]
@@ -20,7 +20,7 @@ const CollabCard = ({
   title,
   description,
   skills,
-  creatorName,
+  creator,
   postedAt,
   onApply,
   applicants,
@@ -47,9 +47,7 @@ const CollabCard = ({
               </span>
             ))}
           </div>
-          <span className="text-xs text-muted-foreground">
-            Posted {postedAt} by {creatorName}
-          </span>
+         <Link className="text-xs text-muted-foreground" href={`user/${creator}`}> Posted {postedAt} by {creator}</Link>
         </CardContent>
       </div>
       <div className="pt-4">

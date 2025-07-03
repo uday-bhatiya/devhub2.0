@@ -8,7 +8,7 @@ export async function GET() {
     try {
         const posts = await Post.find()
             .sort({ createdAt: -1 })
-            .populate("owner", "fullName")
+            .populate("owner", "fullName username avatar")
 
         return NextResponse.json({ posts })
     } catch (error) {

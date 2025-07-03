@@ -3,9 +3,9 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/context/AuthContext';
-import { fetchUserByUsername, toggleFollowUser } from '@/lib/api';
+import { fetchUserByUsername, getAllPublicUserCollabPosts, getAllPublicUserPosts, toggleFollowUser } from '@/lib/api';
 import { set } from 'mongoose';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 
 type PublicUser = {
@@ -23,6 +23,8 @@ const page = () => {
 
   const [publicUser, setPublicUser] = useState<PublicUser | null>(null);
   const { username } = useParams();
+
+  const router = useRouter();
 
   const { user, loading, setLoading } = useAuth();
 
@@ -58,6 +60,26 @@ const handleToggleFollow = async (userId: string) => {
   }
 }
 
+const fetchUserPosts = async (userId: string) => {
+  try {
+    const res = await getAllPublicUserPosts(userId);
+    console.log(res.data)
+  } catch (error) {
+    console.error("Failed to fetch user posts:", error)
+    console.log(error);
+  }
+}
+
+const fetchUserCollabPosts = async (userId: string) => {
+  try {
+    const res = await getAllPublicUserCollabPosts(userId);
+    console.log(res.data)
+  } catch (error) {
+    console.error("Failed to fetch user posts:", error)
+    console.log(error);
+  }
+}
+
   useEffect(() => {
     const fetchUser = async () => {
       const res = await fetchUserByUsername(username as string);
@@ -66,6 +88,15 @@ const handleToggleFollow = async (userId: string) => {
 
     fetchUser();
   }, [username])
+
+  useEffect(() => {
+    if (publicUser?._id) {
+      fetchUserPosts(publicUser._id);
+      fetchUserCollabPosts(publicUser._id);
+    }
+  }, [publicUser]);
+
+  if (username === user?.username) router.push('/profile');
 
   return (
     <div className="max-w-4xl mx-auto py-12 px-4">

@@ -1,10 +1,10 @@
 "use client";
 
+import PublicProfileFeed from '@/components/PublicProfileFeed';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/context/AuthContext';
 import { fetchUserByUsername, getAllPublicUserCollabPosts, getAllPublicUserPosts, toggleFollowUser } from '@/lib/api';
-import { set } from 'mongoose';
 import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 
@@ -31,7 +31,7 @@ const page = () => {
   const isFollowing = publicUser?.followers.some(follower => follower._id === user?._id);
   const followCount = publicUser?.followers.length || 0;
 
-  // console.log(username)
+  console.log("Usre", publicUser)
 
 const handleToggleFollow = async (userId: string) => {
   try {
@@ -63,7 +63,7 @@ const handleToggleFollow = async (userId: string) => {
 const fetchUserPosts = async (userId: string) => {
   try {
     const res = await getAllPublicUserPosts(userId);
-    console.log(res.data)
+    // console.log(res.data)
   } catch (error) {
     console.error("Failed to fetch user posts:", error)
     console.log(error);
@@ -88,13 +88,6 @@ const fetchUserCollabPosts = async (userId: string) => {
 
     fetchUser();
   }, [username])
-
-  useEffect(() => {
-    if (publicUser?._id) {
-      fetchUserPosts(publicUser._id);
-      fetchUserCollabPosts(publicUser._id);
-    }
-  }, [publicUser]);
 
   if (username === user?.username) router.push('/profile');
 
@@ -149,6 +142,8 @@ const fetchUserCollabPosts = async (userId: string) => {
           )}
         </div>
       </div>
+
+      {publicUser?._id? <PublicProfileFeed userId={publicUser?._id as string} owner={publicUser.username} />: ("")}
     </div>
   )
 }

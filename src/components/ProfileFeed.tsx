@@ -21,9 +21,6 @@ const ProfileFeed = () => {
         try {
             const postRes = await getAllUserPosts();
             const collabRes = await getAllUserCollabPosts();
-            if (!postRes || !collabRes) {
-                toast.error("No posts found");
-            }
             setPosts(postRes.data.posts);
             setCollabs(collabRes.data.posts);
             console.log(collabRes.data)
@@ -53,7 +50,7 @@ const ProfileFeed = () => {
                         tags={post.tags}
                         title={post.title}
                         description={post.description.slice(0, 100) + "..."}
-                        creatorName={post.owner?.username || "Anonymous"}
+                        owner={post.owner?.username || "Anonymous"}
                         postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })} image={[]} />
                 ))
                 }
@@ -67,7 +64,7 @@ const ProfileFeed = () => {
                         title={post.title}
                         description={post.description.slice(0, 100) + "..."}
                         skills={post.requiredSkills}
-                        creatorName={post.creator?.fullName || "Anonymous"}
+                        creator={post.creator?.fullName || "Anonymous"}
                         postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}
                         onApply={() => console.log("Apply to", post._id)}
                         applicants={post.applicants}

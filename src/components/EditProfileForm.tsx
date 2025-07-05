@@ -23,14 +23,17 @@ const formSchema = z.object({
 })
 
 type FormData = z.infer<typeof formSchema>
+type EditProfileFormProps = {
+  avatar: string | null
+}
 
- const EditProfileForm = () => {
+const EditProfileForm = ({ avatar }: EditProfileFormProps) => {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
 
-  const { user } = useAuth() 
+  const { user } = useAuth()
   console.log("first", user)
-  
+
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -70,10 +73,11 @@ type FormData = z.infer<typeof formSchema>
       const payload = {
         ...values,
         skills: values.skills?.split(',').map(skill => skill.trim()),
+        avatar
       }
       await axios.patch('/api/user/profile', payload);
       toast.success('Profile updated successfully!');
-      router.push('/profile') 
+      router.push('/profile')
     } catch (err) {
       toast.error('Failed to update profile. Please try again.');
       console.error('Update failed:', err)
@@ -82,85 +86,85 @@ type FormData = z.infer<typeof formSchema>
 
   if (loading) return <div className="text-center py-20">Loading...</div>
 
-    
+
   return (
     <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <FormField
-            control={form.control}
-            name="fullName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Full Name</FormLabel>
-                <FormControl><Input readOnly {...field} /></FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <FormField
+          control={form.control}
+          name="fullName"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Full Name</FormLabel>
+              <FormControl><Input readOnly {...field} /></FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-          <FormField
-            control={form.control}
-            name="username"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Username</FormLabel>
-                <FormControl><Input {...field} /></FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        <FormField
+          control={form.control}
+          name="username"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Username</FormLabel>
+              <FormControl><Input {...field} /></FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl><Input readOnly type="email" {...field} /></FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl><Input readOnly type="email" {...field} /></FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-            <FormField
-            control={form.control}
-            name="headline"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Headline</FormLabel>
-                <FormControl><Input type="text" {...field} /></FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        <FormField
+          control={form.control}
+          name="headline"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Headline</FormLabel>
+              <FormControl><Input type="text" {...field} /></FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-          <FormField
-            control={form.control}
-            name="about"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>About</FormLabel>
-                <FormControl><Textarea rows={4} {...field} /></FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        <FormField
+          control={form.control}
+          name="about"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>About</FormLabel>
+              <FormControl><Textarea rows={4} {...field} /></FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-          <FormField
-            control={form.control}
-            name="skills"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Skills (comma separated)</FormLabel>
-                <FormControl><Input {...field} placeholder="e.g. React, Node.js, MongoDB" /></FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        <FormField
+          control={form.control}
+          name="skills"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Skills (comma separated)</FormLabel>
+              <FormControl><Input {...field} placeholder="e.g. React, Node.js, MongoDB" /></FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-          <Button type="submit" className="w-full">Save</Button>
-        </form>
-      </Form>
+        <Button type="submit" className="w-full">Save</Button>
+      </form>
+    </Form>
   )
 }
 

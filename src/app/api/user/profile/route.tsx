@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { connectDB } from "@/lib/db"
 import { getUserFromToken } from "@/lib/auth"
 import { User } from "@/models/User"
+import { Avatar } from "@radix-ui/react-avatar";
 
 export async function PATCH(req: NextRequest) {
     await connectDB();
@@ -13,6 +14,7 @@ export async function PATCH(req: NextRequest) {
         }
 
         const body = await req.json()
+        // console.log(body)
 
         const updateData: any = {
             fullName: body.fullName,
@@ -21,6 +23,7 @@ export async function PATCH(req: NextRequest) {
             headline: body.headline || '',
             about: body.about || '',
             skills: body.skills || [],
+            avatar: body.avatar
         }
 
         const existingUsername = await User.findOne({ username: body.username })

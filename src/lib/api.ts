@@ -31,6 +31,7 @@ export const likeOnCollabPost = (postId: string) => axios.patch(`/api/collab/lik
 
 export const commentOnCollabPost = (postId: string, text: string) => axios.post(`/api/collab/comment/${postId}`, {text});
 
+export const decideOnApplicant = (postId: string, userId: string, status: "selected" | "rejected") => axios.post(`/api/collab/decision/${postId}/${userId}`, { status });
 // Post
 export const createPost = (data: any) => axios.post("/api/post/create", data);
 

@@ -31,7 +31,7 @@ export async function POST(req: NextRequest,
     }
 
     const applicant = post.applicants.find(
-      (a) => a.user.toString() === params.userId
+      (a: { user: { toString: () => string; }; }) => a.user.toString() === params.userId
     )
 
     if (!applicant) {

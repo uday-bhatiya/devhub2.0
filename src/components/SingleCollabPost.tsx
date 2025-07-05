@@ -8,10 +8,10 @@ import { Button } from "@/components/ui/button"
 import { formatDistanceToNow } from "date-fns"
 import { toast } from "sonner"
 import { Textarea } from "@/components/ui/textarea"
-import { applyToCollabPost, commentOnCollabPost, fetchCollabPostById, likeOnCollabPost } from "@/lib/api"
+import { applyToCollabPost, commentOnCollabPost, decideOnApplicant, fetchCollabPostById, likeOnCollabPost } from "@/lib/api"
 import Link from "next/link"
 import { useAuth } from "@/context/AuthContext"
-import { Heart, MessageCircle, Share2 } from "lucide-react"
+import { Heart, MessageCircle, Share2, User } from "lucide-react"
 import { Avatar, AvatarFallback } from "./ui/avatar"
 import { AvatarImage } from "@radix-ui/react-avatar"
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog"
@@ -28,6 +28,20 @@ type Comment = {
     }
 }
 
+type Applicant = {
+    _id: string
+    message: string
+    status: "selected" | "rejected" | "pending"
+    createdAt: string
+    user: {
+        avatar?: string
+        email: string
+        username: string
+        fullName: string
+        _id: string
+    }
+}
+
 type CollabPost = {
     _id: string
     title: string
@@ -41,11 +55,7 @@ type CollabPost = {
         avatar: string
         username: string
     }
-    applicants: {
-        user: string
-        message: string
-        status: string
-    }[]
+    applicants: Applicant[]
     likes: string[]
     comments: Comment[]
 }
@@ -61,6 +71,7 @@ const SingleCollabPost = () => {
     const [message, setMessage] = useState("");
     const [isApplying, setIsApplying] = useState(false);
     const [copied, setCopied] = useState(false)
+    const [applicants, setApplicants] = useState<Applicant[]>([]);
 
     const { user, loading, setLoading } = useAuth();
 
@@ -144,12 +155,33 @@ const SingleCollabPost = () => {
         }
     }
 
+    const handleDecision = async (userId: string, status: "selected" | "rejected") => {
+        if (!post) return;
+        try {
+            await decideOnApplicant(post._id, userId, status);
+            toast.success(`Applicant ${status}`);
+
+            // Optimistically update UI
+            setApplicants((prev) =>
+                prev.map((app) =>
+                    app.user._id === userId ? { ...app, status } : app
+                )
+            );
+        } catch (error) {
+            console.error("Error updating applicant:", error);
+            toast.error("Failed to update applicant");
+        }
+    };
+
+
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const res = await fetchCollabPostById(id as string);
                 setPost(res.data.post);
+                console.log(res.data)
                 setComments(res.data.post.comments)
+                setApplicants(res.data.post.applicants)
             } catch (err) {
                 console.error("Error loading post", err)
             }
@@ -160,7 +192,7 @@ const SingleCollabPost = () => {
 
     if (!post) return <div className="text-center py-20">Loading post...</div>
 
-    const alreadyApplied = post.applicants.some(app => app.user === user?._id)
+    const alreadyApplied = post.applicants.some(app => app.user._id === user?._id)
     const isOwner = post.creator._id === user?._id
 
     return (
@@ -286,8 +318,6 @@ const SingleCollabPost = () => {
                                     )}
                                 </div>
 
-
-
                                 <DialogFooter>
                                     <Button onClick={handleComment} disabled={loading}>
                                         {loading ? "Posting..." : "Post"}
@@ -315,6 +345,57 @@ const SingleCollabPost = () => {
                             <Share2 className="w-4 h-4" />
                             {copied ? "Copied!" : ""}
                         </Button>
+
+                        {isOwner && (
+                            <Dialog>
+                                <DialogTrigger asChild>
+                                    <Button className="flex items-center gap-2">
+                                        <User />
+                                    </Button>
+                                </DialogTrigger>
+
+                                <DialogContent>
+                                    <DialogHeader>
+                                        <DialogTitle>Collab Requiests</DialogTitle>
+                                    </DialogHeader>
+
+                                    <div className="mt-4 max-h-60 overflow-y-auto space-y-4">
+                                        {Array.isArray(post.applicants) && post.applicants.length > 0 ? (
+                                            [...applicants].reverse().map((applicant) => {
+                                                if (!applicant || typeof applicant !== "object" || !applicant.user || applicant.status !== "pending") {
+                                                    return null;
+                                                }
+
+                                                return (
+                                                    <div key={applicant._id} className="flex items-start justify-between gap-3 border-b pb-2 my-2">
+                                                        <div className="flex items-start gap-3">
+                                                            <Link href={`/user/${applicant.user.username}`}>
+                                                                <Avatar className="h-8 w-8">
+                                                                    <AvatarImage src={applicant.user.avatar || ""} />
+                                                                    <AvatarFallback>{applicant.user.fullName?.charAt(0) || "?"}</AvatarFallback>
+                                                                </Avatar>
+                                                            </Link>
+                                                            <div className="m-w-[70%]">
+                                                                <Link href={`/user/${applicant.user.username}`}>
+                                                                    <p className="text-sm font-semibold">@{applicant.user.username || "unknown"}</p>
+                                                                </Link>
+                                                                <p className="text-sm text-gray-700">{applicant.message}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex flex-col gap-2">
+                                                            <Button onClick={() => handleDecision(applicant.user._id, "selected")} className="w-3 h-3">Y</Button>
+                                                            <Button onClick={() => handleDecision(applicant.user._id, "rejected")} className="w-3 h-3">N</Button>
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })
+                                        ) : (
+                                            <p className="text-sm text-muted-foreground">No comments yet.</p>
+                                        )}
+                                    </div>
+                                </DialogContent>
+                            </Dialog>
+                        )}
                     </div>
                 </CardFooter>
             </Card>

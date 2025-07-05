@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, Model } from "mongoose"
+import mongoose, { Document, Schema, Model, models, model } from "mongoose"
 
 export interface Applicant {
   user: mongoose.Types.ObjectId
@@ -8,6 +8,12 @@ export interface Applicant {
 
 export interface ICollabPost extends Document {
   creator: mongoose.Types.ObjectId
+  likes: [{ type: mongoose.Types.ObjectId, ref: 'User' }]
+  comments: {
+    user: mongoose.Types.ObjectId
+    text: string
+    createdAt: Date
+  }[]
   title: string
   description: string
   requiredSkills: string[]
@@ -64,11 +70,18 @@ const CollabPostSchema: Schema<ICollabPost> = new Schema(
         },
       },
     ],
+    likes: [{ type: mongoose.Types.ObjectId, ref: 'User' }],
+    comments: [
+      {
+        user: { type: mongoose.Types.ObjectId, ref: 'User' },
+        text: String,
+        createdAt: { type: Date, default: Date.now },
+      }
+    ]
   },
   { timestamps: true }
 )
 
-const CollabPost: Model<ICollabPost> =
-  mongoose.models.CollabPost || mongoose.model<ICollabPost>("CollabPost", CollabPostSchema)
+const CollabPost = models.CollabPost || model<ICollabPost>("CollabPost", CollabPostSchema);
 
 export default CollabPost

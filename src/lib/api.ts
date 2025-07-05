@@ -27,6 +27,10 @@ export const fetchCollabPostById = (postId: string) => axios.get(`/api/collab/${
 
 export const getAllUserCollabPosts = () => axios.get('/api/collab/my-posts');
 
+export const likeOnCollabPost = (postId: string) => axios.patch(`/api/collab/like/${postId}`);
+
+export const commentOnCollabPost = (postId: string, text: string) => axios.post(`/api/collab/comment/${postId}`, {text});
+
 // Post
 export const createPost = (data: any) => axios.post("/api/post/create", data);
 
@@ -35,6 +39,11 @@ export const fetchPublicPosts = () => axios.get("/api/post/all");
 export const fetchPostById = (postId: string) => axios.get(`/api/post/${postId}`);
 
 export const getAllUserPosts = () => axios.get('/api/post/my-posts');
+
+export const likeOnPost = (postId: string) => axios.patch(`/api/post/like/${postId}`);
+
+export const commentOnPost = (postId: string, text: string) => axios.post(`/api/post/comment/${postId}`, {text});
+
 
 // User
 

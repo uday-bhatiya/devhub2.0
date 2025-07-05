@@ -9,6 +9,13 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     const post = await CollabPost.findById(params.id)
       .populate("creator", "fullName email avatar username")
       .populate("applicants.user", "fullName email avatar username")
+      .populate({
+        path: "comments",
+        populate: {
+          path: "user",
+          select: "fullName avatar username"
+        }
+      });
 
     if (!post) {
       return NextResponse.json({ message: "Post not found" }, { status: 404 })

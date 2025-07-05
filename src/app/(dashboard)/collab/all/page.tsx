@@ -30,7 +30,7 @@ export default function ExploreCollabPosts() {
             title={post.title}
             description={post.description.slice(0, 100) + "..."}
             skills={post.requiredSkills}
-            creatorName={post.creator?.fullName || "Anonymous"}
+            creator={post.creator?.username || "Anonymous"}
             postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}
             onApply={() => console.log("Apply to", post._id)}
             applicants={post.applicants}

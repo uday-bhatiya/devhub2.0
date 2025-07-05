@@ -53,11 +53,12 @@ const HomeFeed = () => {
                 ))} {posts.slice(0, 4).map((post: any) => (
                     <PostCard
                         key={post._id}
+                        id={post._id}
                         title={post.title}
                         tags={post.tags}
                         description={post.description.slice(0, 100) + "..."}
                         owner={post.owner?.username || "Anonymous"}
-                        postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })} id={""} image={[]} />
+                        postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })} image={[]} />
                 ))
                 }
             </TabsContent>
@@ -69,7 +70,7 @@ const HomeFeed = () => {
                         title={post.title}
                         tags={post.tags}
                         description={post.description.slice(0, 100) + "..."}
-                        owner={post.owner?.fullName || "Anonymous"}
+                        owner={post.owner?.username || "Anonymous"}
                         postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })} image={[]} />
                 ))
                 }

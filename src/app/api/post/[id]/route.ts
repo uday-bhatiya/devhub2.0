@@ -6,7 +6,14 @@ export async function GET(_: NextRequest, { params }: { params: { id: string } }
     await connectDB();
 
     try {
-        const post = await Post.findById(params.id).populate("owner", "fullName avatar username");
+        const post = await Post.findById(params.id).populate("owner", "fullName avatar username")
+            .populate({
+                path: "comments",
+                populate: {
+                    path: "user",
+                    select: "fullName avatar username"
+                }
+            });
         if (!post) return NextResponse.json({ message: "Post not found" }, { status: 404 })
 
         return NextResponse.json({ post });

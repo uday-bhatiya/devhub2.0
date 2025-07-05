@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import Image from 'next/image'
 import { formatDistanceToNow } from 'date-fns'
-import { Github, Heart, MessageCircle, } from "lucide-react"
+import { Heart, MessageCircle, Share2, } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from 'next/link'
 import { useAuth } from '@/context/AuthContext'
@@ -14,6 +14,7 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { commentOnPost, fetchPostById, likeOnPost } from '@/lib/api'
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog'
 import { Input } from './ui/input'
+import { toast } from 'sonner'
 
 type Comment = {
     _id: string
@@ -49,6 +50,7 @@ export default function SinglePostPage() {
     const [text, setText] = useState("")
     const [comments, setComments] = useState<Comment[]>([])
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [copied, setCopied] = useState(false)
     const { id } = useParams();
 
     const { user, loading, setLoading } = useAuth();
@@ -101,6 +103,20 @@ export default function SinglePostPage() {
             setLoading(false);
         }
     };
+
+    const handleShare = async () => {
+        try {
+            const url = `${window.location.origin}/post/${id}`
+            await navigator.clipboard.writeText(url)
+
+            setCopied(true)
+            toast.success("Link copied to clipboard!")
+
+            setTimeout(() => setCopied(false), 4500)
+        } catch (error) {
+            toast.success("Failed to copy link")
+        }
+    }
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -252,6 +268,13 @@ export default function SinglePostPage() {
                             </Button>
                         </Link>
                     )}
+                    <Button
+                        onClick={handleShare}
+                        className="flex items-center gap-2"
+                    >
+                        <Share2 className="w-4 h-4" />
+                        {copied ? "Copied!" : ""}
+                    </Button>
                 </div>
             </CardFooter>
 

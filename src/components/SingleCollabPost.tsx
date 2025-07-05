@@ -11,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { applyToCollabPost, commentOnCollabPost, fetchCollabPostById, likeOnCollabPost } from "@/lib/api"
 import Link from "next/link"
 import { useAuth } from "@/context/AuthContext"
-import { Heart, MessageCircle } from "lucide-react"
+import { Heart, MessageCircle, Share2 } from "lucide-react"
 import { Avatar, AvatarFallback } from "./ui/avatar"
 import { AvatarImage } from "@radix-ui/react-avatar"
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog"
@@ -60,6 +60,7 @@ const SingleCollabPost = () => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [message, setMessage] = useState("");
     const [isApplying, setIsApplying] = useState(false);
+    const [copied, setCopied] = useState(false)
 
     const { user, loading, setLoading } = useAuth();
 
@@ -128,6 +129,20 @@ const SingleCollabPost = () => {
             setLoading(false);
         }
     };
+
+    const handleShare = async () => {
+        try {
+            const url = `${window.location.origin}/collab/${id}`
+            await navigator.clipboard.writeText(url)
+
+            setCopied(true)
+            toast.success("Link copied to clipboard!")
+
+            setTimeout(() => setCopied(false), 4500)
+        } catch (error) {
+            toast.success("Failed to copy link")
+        }
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -292,6 +307,14 @@ const SingleCollabPost = () => {
                                 </Button>
                             </Link>
                         )}
+
+                        <Button
+                            onClick={handleShare}
+                            className="flex items-center gap-2"
+                        >
+                            <Share2 className="w-4 h-4" />
+                            {copied ? "Copied!" : ""}
+                        </Button>
                     </div>
                 </CardFooter>
             </Card>

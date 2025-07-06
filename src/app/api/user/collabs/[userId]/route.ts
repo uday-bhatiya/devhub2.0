@@ -8,7 +8,7 @@ export async function GET(req: NextRequest, { params }: { params: { userId: stri
   try {
     const collabPosts = await CollabPost.find({ creator: params.userId }).sort({ createdAt: -1 });
     return NextResponse.json(collabPosts);
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json({ error: "Failed to fetch collab posts" }, { status: 500 });
   }
 }

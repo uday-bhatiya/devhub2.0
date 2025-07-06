@@ -17,7 +17,7 @@ export async function GET() {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const decoded: any = jwt.verify(token, JWT_SECRET);
+    const decoded = jwt.verify(token, JWT_SECRET) as jwt.JwtPayload;
     const user = await User.findById(decoded.id).select('-password');
 
     if (!user) {
@@ -25,7 +25,10 @@ export async function GET() {
     }
     // console.log(user)
     return NextResponse.json({ user });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message || 'Invalid token' }, { status: 401 });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message || 'Invalid token' }, { status: 401 });
+    }
+    return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
   }
 }

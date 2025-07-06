@@ -2,7 +2,6 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useEffect, useState } from "react";
-import { useAuth } from "@/context/AuthContext";
 import { fetchPublicCollabPosts, fetchPublicPosts } from "@/lib/api";
 import CollabCard from "./CollabCard";
 import { formatDistanceToNow } from "date-fns";
@@ -10,12 +9,34 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import PostCard from "./PostCard";
 
+interface Post {
+    _id: string;
+    title: string;
+    tags: string[];
+    description: string;
+    owner?: {
+        username?: string;
+    };
+    createdAt: string;
+}
+
+interface CollabPost {
+    _id: string;
+    title: string;
+    description: string;
+    requiredSkills: string[];
+    createdAt: string;
+    creator?: {
+        username?: string;
+    };
+}
+
+
 
 const HomeFeed = () => {
 
-    const [collabPost, setCollabPost] = useState([]);
-    const [posts, setPosts] = useState([]);
-    const { user } = useAuth();
+    const [posts, setPosts] = useState<Post[]>([]);
+    const [collabPost, setCollabPost] = useState<CollabPost[]>([]);
     console.log(posts)
     console.log(collabPost)
 
@@ -37,7 +58,7 @@ const HomeFeed = () => {
                 <TabsTrigger value="collabs">Collabs</TabsTrigger>
             </TabsList>
             <TabsContent className="flex gap-3 flex-wrap" value="all">
-                {collabPost.slice(0, 4).map((post: any) => (
+                {collabPost.slice(0, 4).map((post) => (
                     <CollabCard
                         key={post._id}
                         id={post._id}
@@ -46,11 +67,8 @@ const HomeFeed = () => {
                         skills={post.requiredSkills}
                         creator={post.creator?.username || "Anonymous"}
                         postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}
-                        onApply={() => console.log("Apply to", post._id)}
-                        applicants={post.applicants}
-                        currentUserId={user?._id!}
                     />
-                ))} {posts.slice(0, 4).map((post: any) => (
+                ))} {posts.slice(0, 4).map((post) => (
                     <PostCard
                         key={post._id}
                         id={post._id}
@@ -58,12 +76,12 @@ const HomeFeed = () => {
                         tags={post.tags}
                         description={post.description.slice(0, 100) + "..."}
                         owner={post.owner?.username || "Anonymous"}
-                        postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })} image={[]} />
+                        postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}  />
                 ))
                 }
             </TabsContent>
             <TabsContent className="flex gap-3 flex-wrap" value="posts">
-                {posts.slice(0, 4).map((post: any) => (
+                {posts.slice(0, 4).map((post) => (
                     <PostCard
                         key={post._id}
                         id={post._id}
@@ -71,7 +89,7 @@ const HomeFeed = () => {
                         tags={post.tags}
                         description={post.description.slice(0, 100) + "..."}
                         owner={post.owner?.username || "Anonymous"}
-                        postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })} image={[]} />
+                        postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}  />
                 ))
                 }
 
@@ -80,7 +98,7 @@ const HomeFeed = () => {
                 </Link>
             </TabsContent>
             <TabsContent className="flex gap-3 flex-wrap" value="collabs">
-                {collabPost.slice(0, 4).map((post: any) => (
+                {collabPost.slice(0, 4).map((post) => (
                     <CollabCard
                         key={post._id}
                         id={post._id}
@@ -89,9 +107,6 @@ const HomeFeed = () => {
                         skills={post.requiredSkills}
                         creator={post.creator?.username || "Anonymous"}
                         postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}
-                        onApply={() => console.log("Apply to", post._id)}
-                        applicants={post.applicants}
-                        currentUserId={user?._id!}
                     />
                 ))}
                 <Link href="/collab/all">

@@ -15,7 +15,15 @@ export async function PATCH(req: NextRequest) {
         const body = await req.json()
         // console.log(body)
 
-        const updateData: any = {
+        const updateData: {
+            fullName?: string;
+            username?: string;
+            email?: string;
+            headline?: string;
+            about?: string;
+            skills?: string[];
+            avatar?: string;
+        } = {
             fullName: body.fullName,
             username: body.username,
             email: body.email,
@@ -23,7 +31,7 @@ export async function PATCH(req: NextRequest) {
             about: body.about || '',
             skills: body.skills || [],
             avatar: body.avatar
-        }
+        };
 
         const existingUsername = await User.findOne({ username: body.username })
         if (existingUsername && existingUsername._id.toString() !== user._id.toString()) {

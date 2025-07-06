@@ -10,9 +10,6 @@ type CollabCardProps = {
   skills: string[]
   creator: string
   postedAt: string
-  onApply?: () => void
-  applicants: { user: string }[]
-  currentUserId: string
 }
 
 const CollabCard = ({
@@ -22,13 +19,8 @@ const CollabCard = ({
   skills,
   creator,
   postedAt,
-  onApply,
-  applicants,
-  currentUserId,
 
 }: CollabCardProps) => {
-
-  const alreadyApplied = applicants.some(app => app.user === currentUserId)
 
   return (
     <Card className="flex md:flex-row justify-between items-start w-full md:w-[48%] md:px-6 px-2 py-4">

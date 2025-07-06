@@ -8,7 +8,7 @@ export async function GET(req: NextRequest, { params }: { params: { userId: stri
   try {
     const posts = await Post.find({ owner: params.userId }).sort({ createdAt: -1 });
     return NextResponse.json(posts);
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json({ error: "Failed to fetch posts" }, { status: 500 });
   }
 }

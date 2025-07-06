@@ -8,7 +8,6 @@ type PostCardProps = {
     title: string
     description: string
     tags: string[]
-    image: string[]
     owner: string
     postedAt: string
 }
@@ -18,7 +17,6 @@ const PostCard = ({
     title,
     description,
     tags,
-    image,
     owner,
     postedAt,
 

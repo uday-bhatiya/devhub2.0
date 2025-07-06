@@ -8,18 +8,15 @@ import { useAuth } from '@/context/AuthContext'
 import { Camera } from 'lucide-react'
 import React, { useState } from 'react'
 
-const page = () => {
+const Page = () => {
 
   const { user } = useAuth();
-
-  const [avatarFile, setAvatarFile] = useState<File | null>(null)
   const [avatar, setAvatar] = useState(user?.avatar || '')
   const [uploading, setUploading] = useState(false)
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
-    setAvatarFile(file)
 
     const preview = URL.createObjectURL(file)
     setAvatar(preview)
@@ -72,4 +69,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

@@ -41,7 +41,7 @@ const PostForm = () => {
                 tags: values.tags.split(",").map(tag => tag.trim())
             }
 
-            const res = await createPost(payload);
+            await createPost(payload);
 
             toast.success("Post created successfully!")
 

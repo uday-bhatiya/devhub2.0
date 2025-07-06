@@ -44,7 +44,10 @@ export async function POST(req: Request) {
                 email: user.email,
             },
         });
-    } catch (error: any) {
-        return NextResponse.json({ error: error.message || 'Server error' }, { status: 500 });
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            return NextResponse.json({ error: error.message || 'Server error' }, { status: 500 });
+        }
+        return NextResponse.json({ error: 'Server error' }, { status: 500 });
     }
 }

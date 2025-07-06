@@ -1,4 +1,5 @@
 import axios from "@/lib/axios"
+import { Post, CollabPost } from "./type"
 
 // Auth
 export const registerUser = (data: {
@@ -17,7 +18,7 @@ export const getCurrentUser = () => axios.get("/api/auth/me");
 export const logoutUser = () => axios.post("/api/auth/logout");
 
 // Collab
-export const createCollabPost = (data: any) => axios.post("/api/collab/create", data);
+export const createCollabPost = (data: CollabPost) => axios.post("/api/collab/create", data);
 
 export const fetchPublicCollabPosts = () => axios.get("/api/collab/all");
 
@@ -33,7 +34,7 @@ export const commentOnCollabPost = (postId: string, text: string) => axios.post(
 
 export const decideOnApplicant = (postId: string, userId: string, status: "selected" | "rejected") => axios.post(`/api/collab/decision/${postId}/${userId}`, { status });
 // Post
-export const createPost = (data: any) => axios.post("/api/post/create", data);
+export const createPost = (data: Post) => axios.post("/api/post/create", data);
 
 export const fetchPublicPosts = () => axios.get("/api/post/all");
 

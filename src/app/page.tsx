@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Handshake, Code, Users, Network } from "lucide-react"
+import { Handshake, Code, Network } from "lucide-react"
 
 export default function LandingPage() {
   return (

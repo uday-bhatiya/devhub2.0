@@ -50,7 +50,7 @@ export default function Page() {
             // console.log(res)
             setUser(res.data.user);
             router.push("/home");
-        } catch (error) {
+        } catch (error: unknown) {
             if (error instanceof AxiosError) {
                 toast.error(error.response?.data?.error || "Login failed");
             } else {

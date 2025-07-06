@@ -7,15 +7,35 @@ import { toast } from 'sonner'
 import PostCard from './PostCard'
 import { formatDistanceToNow } from 'date-fns'
 import CollabCard from './CollabCard'
-import { useAuth } from '@/context/AuthContext'
+
+interface Post {
+    _id: string;
+    title: string;
+    description: string;
+    tags: string[];
+    createdAt: string;
+    owner?: {
+        username?: string;
+    };
+}
+
+interface CollabPost {
+    _id: string;
+    title: string;
+    description: string;
+    requiredSkills: string[];
+    createdAt: string;
+    creator?: {
+        fullName?: string;
+    };
+}
+
 
 
 const ProfileFeed = () => {
 
-    const [posts, setPosts] = useState([]);
-    const [collabs, setCollabs] = useState([]);
-
-    const { user } = useAuth();
+    const [posts, setPosts] = useState<Post[]>([]);
+    const [collabs, setCollabs] = useState<CollabPost[]>([]);
 
     const getAllPost = async () => {
         try {
@@ -51,13 +71,13 @@ const ProfileFeed = () => {
                         title={post.title}
                         description={post.description.slice(0, 100) + "..."}
                         owner={post.owner?.username || "Anonymous"}
-                        postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })} image={[]} />
+                        postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })} />
                 ))
                 }
 
             </TabsContent>
             <TabsContent className="flex gap-3 flex-wrap" value="collabs">
-                 {collabs.map((post: any) => (
+                {collabs.map((post: any) => (
                     <CollabCard
                         key={post._id}
                         id={post._id}
@@ -66,9 +86,6 @@ const ProfileFeed = () => {
                         skills={post.requiredSkills}
                         creator={post.creator?.fullName || "Anonymous"}
                         postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}
-                        onApply={() => console.log("Apply to", post._id)}
-                        applicants={post.applicants}
-                        currentUserId={user?._id!}
                     />
                 ))}
             </TabsContent>

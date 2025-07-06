@@ -19,7 +19,7 @@ type PublicUser = {
   followers: { _id: string }[]
 }
 
-const page = () => {
+const Page = () => {
 
   const [publicUser, setPublicUser] = useState<PublicUser | null>(null);
   const { username } = useParams();
@@ -42,7 +42,6 @@ const handleToggleFollow = async (userId: string) => {
     if (publicUser && user) {
       setPublicUser(prev => {
         if (!prev) return prev;
-        const alreadyFollowing = prev.followers.some(f => f._id === user._id);
 
         return {
           ...prev,
@@ -57,26 +56,6 @@ const handleToggleFollow = async (userId: string) => {
     console.error("Failed to toggle follow status", error);
   } finally {
     setLoading(false);
-  }
-}
-
-const fetchUserPosts = async (userId: string) => {
-  try {
-    const res = await getAllPublicUserPosts(userId);
-    // console.log(res.data)
-  } catch (error) {
-    console.error("Failed to fetch user posts:", error)
-    console.log(error);
-  }
-}
-
-const fetchUserCollabPosts = async (userId: string) => {
-  try {
-    const res = await getAllPublicUserCollabPosts(userId);
-    console.log(res.data)
-  } catch (error) {
-    console.error("Failed to fetch user posts:", error)
-    console.log(error);
   }
 }
 
@@ -148,4 +127,4 @@ const fetchUserCollabPosts = async (userId: string) => {
   )
 }
 
-export default page
+export default Page

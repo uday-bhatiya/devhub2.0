@@ -97,17 +97,14 @@ function MenubarRadioGroup({
 
 function MenubarItem({
   className,
-  inset,
   ...props
 }: React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Item> & {
-  inset?: boolean
 }) {
   return (
     <MenubarPrimitive.Item
       data-slot="menubar-item"
-      data-inset={inset}
       className={cn(
-        "relative flex cursor-default select-none items-center rounded-base border-2 border-transparent px-2 py-1.5 text-sm font-base outline-hidden focus:border-border data-disabled:pointer-events-none data-disabled:opacity-50 data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "relative flex cursor-default select-none items-center rounded-base border-2 border-transparent px-2 py-1.5 text-sm font-base outline-hidden focus:border-border data-disabled:pointer-events-none data-disabled:opacity-50 pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -167,17 +164,17 @@ function MenubarRadioItem({
 
 function MenubarLabel({
   className,
-  inset,
+
   ...props
 }: React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Label> & {
-  inset?: boolean
+
 }) {
   return (
     <MenubarPrimitive.Label
       data-slot="menubar-label"
-      data-inset={inset}
+
       className={cn(
-        "px-2 py-1.5 text-sm font-heading data-[inset]:pl-8",
+        "px-2 py-1.5 text-sm font-heading",
         className,
       )}
       {...props}
@@ -216,17 +213,17 @@ function MenubarShortcut({
 
 function MenubarSubTrigger({
   className,
-  inset,
+
   children,
   ...props
 }: React.ComponentPropsWithoutRef<typeof MenubarPrimitive.SubTrigger> & {
-  inset?: boolean
+
 }) {
   return (
     <MenubarPrimitive.SubTrigger
       data-slot="menubar-sub-trigger"
       className={cn(
-        "flex cursor-default select-none items-center rounded-base border-2 border-transparent px-3 py-1.5 text-sm font-base outline-hidden focus:border-border data-[state=open]:border-border data-[inset]:pl-8",
+        "flex cursor-default select-none items-center rounded-base border-2 border-transparent px-3 py-1.5 text-sm font-base outline-hidden focus:border-border data-[state=open]:border-border data-",
         className,
       )}
       {...props}

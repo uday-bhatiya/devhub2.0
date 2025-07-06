@@ -11,7 +11,9 @@ export default function HomePage() {
     <div className="w-full bg-[#0D1117] text-white">
       <div>
         <h1 className="text-4xl font-bold">Welcome back, {user?.fullName} 👋</h1>
-        <p className="text-muted-foreground mt-2 text-slate-500 ">Here's what's happening in the DevHub community.</p>
+        <p className="text-muted-foreground mt-2 text-slate-500 ">
+          Here&apos;s what&apos;s happening in the DevHub community.
+        </p>
       </div>
       <ActionBar />
       <HomeFeed />

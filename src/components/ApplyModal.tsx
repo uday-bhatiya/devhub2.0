@@ -18,9 +18,14 @@ export default function ApplyModal({ postId }: { postId: string }) {
       await applyToCollabPost(postId, message)
       toast.success("Application sent successfully!");
       setOpen(false)
-    } catch (err: any) {
-      toast.error(err.response?.data?.message || "Failed to send application");
-    } finally {
+    } catch (err: unknown) {
+      if (err instanceof Error && (err as any).response?.data?.message) {
+        toast.error((err as any).response.data.message);
+      } else {
+        toast.error("Failed to send application");
+      }
+    }
+    finally {
       setLoading(false)
     }
   }

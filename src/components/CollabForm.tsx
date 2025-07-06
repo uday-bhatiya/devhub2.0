@@ -41,7 +41,7 @@ const CollabForm = () => {
                 requiredSkills: values.requiredSkills.split(",").map(skill => skill.trim())
             }
 
-            const res = await createCollabPost(payload);
+            await createCollabPost(payload);
 
             toast.success("Collaboration post created successfully!")
 

@@ -150,7 +150,7 @@ const SingleCollabPost = () => {
             toast.success("Link copied to clipboard!")
 
             setTimeout(() => setCopied(false), 4500)
-        } catch (error) {
+        } catch (_error) {
             toast.success("Failed to copy link")
         }
     }

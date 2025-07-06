@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, Model, models, model } from "mongoose"
+import mongoose, { Document, Schema, models, model } from "mongoose"
 
 export interface Applicant {
   user: mongoose.Types.ObjectId

@@ -16,7 +16,6 @@ import { Avatar, AvatarFallback } from "./ui/avatar"
 import { AvatarImage } from "@radix-ui/react-avatar"
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog"
 import { Input } from "./ui/input"
-import { error } from "console"
 
 type Comment = {
     _id: string
@@ -153,7 +152,7 @@ const SingleCollabPost = () => {
             setTimeout(() => setCopied(false), 4500)
         } catch (_error) {
             toast.success("Failed to copy link")
-            console.log(error)
+            console.log(_error)
         }
     }
 
@@ -181,7 +180,7 @@ const SingleCollabPost = () => {
             try {
                 const res = await fetchCollabPostById(id as string);
                 setPost(res.data.post);
-                console.log(res.data)
+                // console.log(res.data)
                 setComments(res.data.post.comments)
                 setApplicants(res.data.post.applicants)
             } catch (err) {

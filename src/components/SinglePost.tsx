@@ -115,6 +115,7 @@ export default function SinglePostPage() {
             setTimeout(() => setCopied(false), 4500)
         } catch (error) {
             toast.success("Failed to copy link")
+            console.log(error)
         }
     }
 

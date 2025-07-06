@@ -2,7 +2,7 @@ import jwt, { JwtPayload } from "jsonwebtoken"
 import { cookies } from "next/headers"
 import { User } from "@/models/User"
 
-export const getUserFromToken = async (_req: Request) => {
+export const getUserFromToken = async () => {
   const token = (await cookies()).get("token")?.value
   if (!token) return null
 

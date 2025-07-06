@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import CollabPost from "@/models/CollabPost"
 import { connectDB } from "@/lib/db"
+import { error } from "console";
 
 export async function GET(req: NextRequest, { params }: { params: { userId: string } }) {
   await connectDB();
@@ -9,6 +10,6 @@ export async function GET(req: NextRequest, { params }: { params: { userId: stri
     const collabPosts = await CollabPost.find({ creator: params.userId }).sort({ createdAt: -1 });
     return NextResponse.json(collabPosts);
   } catch (_error) {
-    return NextResponse.json({ error: "Failed to fetch collab posts" }, { status: 500 });
+    return NextResponse.json({ message: "Failed to fetch collab posts", err: error }, { status: 500 });
   }
 }

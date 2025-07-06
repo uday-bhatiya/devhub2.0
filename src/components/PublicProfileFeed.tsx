@@ -7,6 +7,7 @@ import { toast } from 'sonner'
 import PostCard from './PostCard'
 import { formatDistanceToNow } from 'date-fns'
 import CollabCard from './CollabCard'
+import { Post } from '@/lib/type'
 
 type PublicProfileFeedProps = {
     userId: string
@@ -73,7 +74,7 @@ const PublicProfileFeed = ({ userId, owner }: PublicProfileFeedProps) => {
             </TabsList>
             <TabsContent className="flex gap-3 flex-wrap" value="posts">
                 {
-                    posts && posts.map((post: any) => (
+                    posts && posts.map((post: PublicPost) => (
                         <PostCard
                             key={post._id}
                             id={post._id}
@@ -91,7 +92,7 @@ const PublicProfileFeed = ({ userId, owner }: PublicProfileFeedProps) => {
             <TabsContent className="flex gap-3 flex-wrap" value="collabs">
 
                 {
-                    collabs && collabs.map((post: any) => (
+                    collabs && collabs.map((post: PublicCollab) => (
                         <CollabCard
                             key={post._id}
                             id={post._id}

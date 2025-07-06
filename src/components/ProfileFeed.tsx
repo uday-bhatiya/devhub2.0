@@ -7,30 +7,7 @@ import { toast } from 'sonner'
 import PostCard from './PostCard'
 import { formatDistanceToNow } from 'date-fns'
 import CollabCard from './CollabCard'
-
-interface Post {
-    _id: string;
-    title: string;
-    description: string;
-    tags: string[];
-    createdAt: string;
-    owner?: {
-        username?: string;
-    };
-}
-
-interface CollabPost {
-    _id: string;
-    title: string;
-    description: string;
-    requiredSkills: string[];
-    createdAt: string;
-    creator?: {
-        fullName?: string;
-    };
-}
-
-
+import { CollabPost, Post } from '@/lib/type'
 
 const ProfileFeed = () => {
 
@@ -63,21 +40,21 @@ const ProfileFeed = () => {
                 <TabsTrigger value="collabs">Collabs</TabsTrigger>
             </TabsList>
             <TabsContent className="flex gap-3 flex-wrap" value="posts">
-                {posts.map((post: any) => (
+                {posts.map((post: Post) => (
                     <PostCard
                         key={post._id}
-                        id={post._id}
+                        id={post._id? post._id : ""}
                         tags={post.tags}
                         title={post.title}
                         description={post.description.slice(0, 100) + "..."}
                         owner={post.owner?.username || "Anonymous"}
-                        postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })} />
+                        postedAt={formatDistanceToNow(new Date(post?.createdAt? post.createdAt : ""), { addSuffix: true })} />
                 ))
                 }
 
             </TabsContent>
             <TabsContent className="flex gap-3 flex-wrap" value="collabs">
-                {collabs.map((post: any) => (
+                {collabs.map((post: CollabPost) => (
                     <CollabCard
                         key={post._id}
                         id={post._id}

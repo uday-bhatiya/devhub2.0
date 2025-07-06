@@ -4,6 +4,7 @@ import { fetchPublicPosts } from "@/lib/api"
 import { useEffect, useState } from "react"
 import { formatDistanceToNow } from "date-fns"
 import PostCard from "@/components/PostCard"
+import { Post } from "@/lib/type"
 
 export default function ExploreCollabPosts() {
 
@@ -23,7 +24,7 @@ export default function ExploreCollabPosts() {
     <main className="w-full flex flex-col gap-6 p-6 items-center">
       <h1 className="text-2xl font-bold">Explore Posts</h1>
       <div className="w-full flex gap-4 flex-wrap">
-      {posts.map((post: Record<string, any>) => (
+      {posts.map((post: Post) => (
           <PostCard
             key={post._id}
             tags={post.tags}
@@ -32,7 +33,6 @@ export default function ExploreCollabPosts() {
             description={post.description.slice(0, 100) + "..."}
             owner={post.owner?.fullName || "Anonymous"}
             postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}
-            image={post.images? post.images : ""}
           />
         ))}
       </div>

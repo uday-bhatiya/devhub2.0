@@ -5,6 +5,7 @@ import { fetchPublicCollabPosts } from "@/lib/api"
 import { useEffect, useState } from "react"
 import { formatDistanceToNow } from "date-fns"
 import { useAuth } from "@/context/AuthContext"
+import { CollabPost } from "@/lib/type"
 
 export default function ExploreCollabPosts() {
 
@@ -23,7 +24,7 @@ export default function ExploreCollabPosts() {
     <main className="w-full flex flex-col gap-6 p-6 items-center">
       <h1 className="text-2xl font-bold">Explore Collaboration Posts</h1>
       <div className="w-full flex gap-4 flex-wrap">
-        {posts.map((post: Record<string, any>) => (
+        {posts.map((post: CollabPost) => (
           <CollabCard
             key={post._id}
             id={post._id}
@@ -32,9 +33,6 @@ export default function ExploreCollabPosts() {
             skills={post.requiredSkills}
             creator={post.creator?.username || "Anonymous"}
             postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}
-            onApply={() => console.log("Apply to", post._id)}
-            applicants={post.applicants}
-            currentUserId={user?._id ?? ""}
           />
         ))}
       </div>

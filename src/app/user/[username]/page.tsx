@@ -4,7 +4,7 @@ import PublicProfileFeed from '@/components/PublicProfileFeed';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/context/AuthContext';
-import { fetchUserByUsername, getAllPublicUserCollabPosts, getAllPublicUserPosts, toggleFollowUser } from '@/lib/api';
+import { fetchUserByUsername, toggleFollowUser } from '@/lib/api';
 import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 

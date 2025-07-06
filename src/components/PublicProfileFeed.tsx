@@ -7,7 +7,6 @@ import { toast } from 'sonner'
 import PostCard from './PostCard'
 import { formatDistanceToNow } from 'date-fns'
 import CollabCard from './CollabCard'
-import { Post } from '@/lib/type'
 
 type PublicProfileFeedProps = {
     userId: string

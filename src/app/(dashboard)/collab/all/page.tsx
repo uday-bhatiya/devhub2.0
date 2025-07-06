@@ -4,13 +4,11 @@ import CollabCard from "@/components/CollabCard"
 import { fetchPublicCollabPosts } from "@/lib/api"
 import { useEffect, useState } from "react"
 import { formatDistanceToNow } from "date-fns"
-import { useAuth } from "@/context/AuthContext"
 import { CollabPost } from "@/lib/type"
 
 export default function ExploreCollabPosts() {
 
   const [posts, setPosts] = useState([]);
-  const { user } = useAuth();
 
   useEffect(() => {
     const load = async () => {

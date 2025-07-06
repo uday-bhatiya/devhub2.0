@@ -13,7 +13,6 @@ export async function GET(_: NextRequest, { params }: { params: { username: stri
         if (!user){
           return NextResponse.json({ message: "User not found" }, { status: 404 })  
         } 
-
         // console.log(user)
         return NextResponse.json({ user });
     } catch (error) {

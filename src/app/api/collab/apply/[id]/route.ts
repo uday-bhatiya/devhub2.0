@@ -19,8 +19,21 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
       return NextResponse.json({ message: "Post not found" }, { status: 404 })
     }
 
-    //praevent applying twice
-    const alreadyApplied = post.applicants.some(app => app.user.toString() === user._id.toString())
+    interface Applicant {
+      user: string;
+      message: string;
+      status: string;
+    }
+
+    interface CollabPostType {
+      applicants: Applicant[];
+      creator: string;
+      _id: string;
+      save: () => Promise<void>;
+    }
+
+    const postTyped = post as CollabPostType;
+    const alreadyApplied = postTyped.applicants.some((app: Applicant) => app.user.toString() === user._id.toString());
     if (alreadyApplied) {
       return NextResponse.json({ message: "You already applied" }, { status: 400 })
     }

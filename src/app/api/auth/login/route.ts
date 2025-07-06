@@ -10,7 +10,6 @@ const JWT_SECRET = process.env.JWT_SECRET as string;
 export async function POST(req: Request) {
     try {
         await connectDB();
-
         const { email, password } = await req.json();
 
         // Check if user exists

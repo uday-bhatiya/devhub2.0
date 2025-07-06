@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server"
 import { connectDB } from "@/lib/db"
 import { getUserFromToken } from "@/lib/auth"
 import { User } from "@/models/User"
-import { Avatar } from "@radix-ui/react-avatar";
 
 export async function PATCH(req: NextRequest) {
     await connectDB();

@@ -15,6 +15,7 @@ import { useAuth } from "@/context/AuthContext"
 import { logoutUser } from "@/lib/api"
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { toast } from "sonner"
+import NotificationBell from "./NotificationBell"
 
 const Navbar = () => {
     const router = useRouter()
@@ -51,10 +52,11 @@ const Navbar = () => {
 
             <MenubarMenu>
                 <MenubarTrigger>
-                    <Avatar className="h-7 w-7 cursor-pointer">
+                    <Avatar className="h-7 w-7 mx-2 cursor-pointer">
                         <AvatarImage src={user?.avatar || ""} />
                         <AvatarFallback>{user?.fullName ? user.fullName.charAt(0) : ""}</AvatarFallback>
                     </Avatar>
+            <NotificationBell />
                 </MenubarTrigger>
                 <MenubarContent>
                     <MenubarItem>

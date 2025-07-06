@@ -11,7 +11,6 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
         if (!user) return NextResponse.json({ message: "Unauthorized" }, { status: 401 })
 
         const { text } = await req.json()
- 
         if (!text) return NextResponse.json({ message: "Comment cannot be empty" }, { status: 400 })
 
         const post = await Post.findById(params.id)

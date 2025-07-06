@@ -55,3 +55,9 @@ export const toggleFollowUser = (userId: string) => axios.patch(`/api/user/follo
 export const getAllPublicUserPosts = (userId: string) => axios.get(`/api/user/posts/${userId}`);
 
 export const getAllPublicUserCollabPosts = (userId: string) => axios.get(`/api/user/collabs/${userId}`);
+
+// Notification
+
+export const getNotifications = () => axios.get("/api/notifications");
+
+export const markNotificationAsRead = (id: string) => axios.patch(`/api/notifications/${id}/read`);

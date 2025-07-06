@@ -1,5 +1,6 @@
 import { getUserFromToken } from "@/lib/auth"
 import { connectDB } from "@/lib/db";
+import { createNotification } from "@/lib/notify";
 import CollabPost from "@/models/CollabPost"
 import { NextRequest, NextResponse } from "next/server"
 

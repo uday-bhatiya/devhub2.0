@@ -18,6 +18,7 @@ import { registerUser } from "@/lib/api"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { useAuth } from "@/context/AuthContext"
+import Link from "next/link"
 
 
 const formSchema = z.object({
@@ -55,15 +56,16 @@ export default function page() {
     }
 
     return (
-        <div className="flex items-center justify-center h-screen">
+        <div className="flex flex-col gap-6 items-center justify-center h-screen bg-[#0D1117]">
+            <h3 className="text-white mb-3">Register to DevHub</h3>
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-1/3">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 md:w-1/3">
                     <FormField
                         control={form.control}
                         name="fullName"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Full Name</FormLabel>
+                                <FormLabel className="text-white">Full Name</FormLabel>
                                 <FormControl>
                                     <Input type="text" placeholder="Enter your full name" {...field} />
                                 </FormControl>
@@ -76,7 +78,7 @@ export default function page() {
                         name="email"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Email</FormLabel>
+                                <FormLabel className="text-white">Email</FormLabel>
                                 <FormControl>
                                     <Input type="email" placeholder="Enter your email" {...field} />
                                 </FormControl>
@@ -89,7 +91,7 @@ export default function page() {
                         name="password"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Password</FormLabel>
+                                <FormLabel className="text-white">Password</FormLabel>
                                 <FormControl>
                                     <Input type="password" placeholder="Enter your password" {...field} />
                                 </FormControl>
@@ -100,6 +102,7 @@ export default function page() {
                     <Button type="submit">Submit</Button>
                 </form>
             </Form>
+            <span className="text-white">Already have an account? <Link className="text-blue-500" href={"/login"}>Login!</Link></span>
         </div>
     )
 }

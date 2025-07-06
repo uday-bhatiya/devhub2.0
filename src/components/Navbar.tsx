@@ -16,6 +16,7 @@ import { logoutUser } from "@/lib/api"
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { toast } from "sonner"
 import NotificationBell from "./NotificationBell"
+import { Handshake } from "lucide-react"
 
 const Navbar = () => {
     const router = useRouter()
@@ -29,15 +30,15 @@ const Navbar = () => {
     }
 
     return (
-        <Menubar className="justify-between w-full px-6 py-5 mx-20 my-3 border-b shadow-sm">
+        <Menubar className="justify-between w-full px-6 py-5 md:mx-20 my-3 border-b shadow-sm">
             <MenubarMenu>
                 <MenubarTrigger className="font-bold text-black text-lg">
-                    <Link href="/home">DevHub 🚀</Link>
+                    <Link className="flex items-center" href="/home"><Handshake /> DevHub</Link>
                 </MenubarTrigger>
             </MenubarMenu>
 
             <MenubarMenu >
-                <div className="flex items-center space-x-3">
+                <div className="md:flex items-center space-x-3 hidden">
                     <MenubarTrigger>
                         <Link href="/home">Home</Link>
                     </MenubarTrigger>

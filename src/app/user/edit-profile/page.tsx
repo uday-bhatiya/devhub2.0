@@ -58,7 +58,7 @@ const page = () => {
             onChange={handleImageChange}
             className="hidden"
           />
-          <Camera />
+          <Camera className='text-black' />
         </Label>
       </div>
 

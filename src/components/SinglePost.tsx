@@ -194,7 +194,7 @@ export default function SinglePostPage() {
             </CardContent>
 
             <CardFooter>
-                <div className="flex gap-4 pt-6 border-t mt-4">
+                <div className="flex flex-wrap gap-4 pt-6 border-t mt-4">
                     <Button onClick={handleLike} className="flex items-center gap-2">
                         <Heart className="w-4 h-4" />
                         : {post.likes.length}

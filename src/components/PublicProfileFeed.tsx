@@ -67,7 +67,7 @@ useEffect(() => {
 
     return (
         <Tabs defaultValue="posts" className="w-full h-full mt-4">
-            <TabsList className="grid grid-cols-2 w-[400px]">
+            <TabsList className="grid grid-cols-2 w-[200px] md:w-[400px]">
                 <TabsTrigger value="posts">Posts</TabsTrigger>
                 <TabsTrigger value="collabs">Collabs</TabsTrigger>
             </TabsList>

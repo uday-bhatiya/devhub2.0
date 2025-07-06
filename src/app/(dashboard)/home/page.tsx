@@ -8,7 +8,7 @@ export default function HomePage() {
   const { user } = useAuth()
 
   return (
-    <div className="w-full ">
+    <div className="w-full bg-[#0D1117] text-white">
       <div>
         <h1 className="text-4xl font-bold">Welcome back, {user?.fullName} 👋</h1>
         <p className="text-muted-foreground mt-2 text-slate-500 ">Here's what's happening in the DevHub community.</p>

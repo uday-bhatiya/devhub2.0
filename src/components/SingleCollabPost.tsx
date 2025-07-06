@@ -266,7 +266,7 @@ const SingleCollabPost = () => {
 
                 </CardContent>
                 <CardFooter>
-                    <div className="flex gap-4 pt-6 border-t mt-4">
+                    <div className="flex flex-wrap gap-4 pt-6 border-t mt-4">
                         <Button onClick={handleLike} className="flex items-center gap-2">
                             <Heart className="w-4 h-4" />
                             : {post?.likes ? post.likes.length : "0"}
@@ -282,7 +282,7 @@ const SingleCollabPost = () => {
 
                             <DialogContent>
                                 <DialogHeader>
-                                    <DialogTitle>Add a Comment</DialogTitle>
+                                    <DialogTitle className="text-black">Add a Comment</DialogTitle>
                                 </DialogHeader>
 
                                 <Input
@@ -290,7 +290,7 @@ const SingleCollabPost = () => {
                                     value={text}
                                     onChange={(e) => setText(e.target.value)}
                                 />
-                                <div className="mt-4 max-h-60 overflow-y-auto space-y-4">
+                                <div className="mt-4 max-h-60 overflow-y-auto space-y-4 text-black">
                                     {Array.isArray(comments) && comments.length > 0 ? (
                                         [...comments].reverse().map((comment) => {
                                             if (!comment || typeof comment !== "object" || !comment.user) {
@@ -356,10 +356,10 @@ const SingleCollabPost = () => {
 
                                 <DialogContent>
                                     <DialogHeader>
-                                        <DialogTitle>Collab Requiests</DialogTitle>
+                                        <DialogTitle className="text-black">Collab Requiests</DialogTitle>
                                     </DialogHeader>
 
-                                    <div className="mt-4 max-h-60 overflow-y-auto space-y-4">
+                                    <div className="mt-4 max-h-60 overflow-y-auto space-y-4 text-black">
                                         {Array.isArray(post.applicants) && post.applicants.length > 0 ? (
                                             [...applicants].reverse().map((applicant) => {
                                                 if (!applicant || typeof applicant !== "object" || !applicant.user || applicant.status !== "pending") {
@@ -367,7 +367,7 @@ const SingleCollabPost = () => {
                                                 }
 
                                                 return (
-                                                    <div key={applicant._id} className="flex items-start justify-between gap-3 border-b pb-2 my-2">
+                                                    <div key={applicant._id} className="flex items-start justify-between gap-3 border-b pb-2 my-2 bg-black">
                                                         <div className="flex items-start gap-3">
                                                             <Link href={`/user/${applicant.user.username}`}>
                                                                 <Avatar className="h-8 w-8">

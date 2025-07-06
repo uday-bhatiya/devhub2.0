@@ -31,7 +31,7 @@ const CollabCard = ({
   const alreadyApplied = applicants.some(app => app.user === currentUserId)
 
   return (
-    <Card className="flex flex-row justify-between items-start w-[48%] px-6 py-4">
+    <Card className="flex md:flex-row justify-between items-start w-full md:w-[48%] md:px-6 px-2 py-4">
       <div className="flex flex-col gap-2">
         <CardHeader className="p-0">
           <CardTitle className="text-lg font-bold text-blue-600"><Link href={`/collab/${id}`}>[Collab] {title}</Link></CardTitle>

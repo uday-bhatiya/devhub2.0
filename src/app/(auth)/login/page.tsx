@@ -18,6 +18,7 @@ import { loginUser } from "@/lib/api"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/context/AuthContext"
 import { toast } from "sonner"
+import Link from "next/link"
 
 const formSchema = z.object({
     email: z.string().email("Invalid email address").min(1, "Email is required"),
@@ -49,20 +50,21 @@ export default function page() {
             setUser(res.data.user);
             router.push("/home");
         } catch (error: any) {
-           toast.error(error.response?.data?.error || "Login failed");
+            toast.error(error.response?.data?.error || "Login failed");
         }
     }
 
     return (
-        <div className="flex items-center flex-col justify-center h-screen gap-6">
+        <div className="flex items-center flex-col justify-center h-screen gap-6 bg-[#0D1117]">
+            <h3 className="text-white mb-3">Login to DevHub</h3>
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-1/3">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 md:w-1/3">
                     <FormField
                         control={form.control}
                         name="email"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Email</FormLabel>
+                                <FormLabel className="text-white">Email</FormLabel>
                                 <FormControl>
                                     <Input type="email" placeholder="Enter your email" {...field} />
                                 </FormControl>
@@ -75,7 +77,7 @@ export default function page() {
                         name="password"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Password</FormLabel>
+                                <FormLabel className="text-white">Password</FormLabel>
                                 <FormControl>
                                     <Input type="password" placeholder="Enter your password" {...field} />
                                 </FormControl>
@@ -86,6 +88,7 @@ export default function page() {
                     <Button type="submit">Submit</Button>
                 </form>
             </Form>
+            <span className="text-white">New Here? <Link className="text-blue-500" href={"/register"}>Register Now!</Link></span>
         </div>
     )
 }

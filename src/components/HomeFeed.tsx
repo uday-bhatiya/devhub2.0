@@ -30,8 +30,8 @@ const HomeFeed = () => {
     }, []);
 
     return (
-        <Tabs defaultValue="all" className="w-full h-full">
-            <TabsList className="grid grid-cols-3 w-[400px]">
+        <Tabs defaultValue="all" className="w-full h-full bg-[#0D1117] text-white">
+            <TabsList className="grid grid-cols-3 w-[200px] md:w-[400px] bg-[#0D1117] text-white border-white">
                 <TabsTrigger value="all">All</TabsTrigger>
                 <TabsTrigger value="posts">Posts</TabsTrigger>
                 <TabsTrigger value="collabs">Collabs</TabsTrigger>

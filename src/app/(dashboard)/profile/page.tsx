@@ -35,8 +35,8 @@ const Page = () => {
   return (
     <div className="max-w-4xl mx-auto py-12 px-4">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-6">
-          <Avatar className="h-24 w-24">
+        <div className="md:flex items-center gap-6 block">
+          <Avatar className="h-20 w-20 md:h-24 md:w-24 mb-2">
             <AvatarImage src={user.avatar || ""} />
             <AvatarFallback>{user?.fullName?.charAt(0) || "?"}</AvatarFallback>
           </Avatar>
@@ -46,7 +46,7 @@ const Page = () => {
               @{user.username || "unknown"} • {user.email}
             </p>
             {user.headline && (
-              <p className="text-base text-gray-600 mt-1">{user.headline}</p>
+              <p className="text-base text-gray-300 mt-1">{user.headline}</p>
             )}
           </div>
         </div>
@@ -55,7 +55,7 @@ const Page = () => {
 
       <div className="mt-10">
         <h2 className="text-xl font-semibold mb-2">About</h2>
-        <p className="text-gray-700">{user.about || "No about info provided yet."}</p>
+        <p className="text-gray-300">{user.about || "No about info provided yet."}</p>
       </div>
 
       <div className="mt-8">

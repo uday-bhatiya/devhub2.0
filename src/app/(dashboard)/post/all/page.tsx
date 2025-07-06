@@ -3,13 +3,11 @@
 import { fetchPublicPosts } from "@/lib/api"
 import { useEffect, useState } from "react"
 import { formatDistanceToNow } from "date-fns"
-import { useAuth } from "@/context/AuthContext"
 import PostCard from "@/components/PostCard"
 
 export default function ExploreCollabPosts() {
 
   const [posts, setPosts] = useState([]);
-  const { user } = useAuth();
 
   console.log(posts)
 
@@ -32,7 +30,7 @@ export default function ExploreCollabPosts() {
             id={post._id}
             title={post.title}
             description={post.description.slice(0, 100) + "..."}
-            creatorName={post.owner?.fullName || "Anonymous"}
+            owner={post.owner?.fullName || "Anonymous"}
             postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}
             image={post.images? post.images : ""}
           />

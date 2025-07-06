@@ -29,7 +29,7 @@ const formSchema = z.object({
     }),
 })
 
-export default function page() {
+export default function Page() {
 
     const router = useRouter();
     const { setUser } = useAuth();

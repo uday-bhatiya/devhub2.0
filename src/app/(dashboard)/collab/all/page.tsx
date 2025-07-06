@@ -23,7 +23,7 @@ export default function ExploreCollabPosts() {
     <main className="w-full flex flex-col gap-6 p-6 items-center">
       <h1 className="text-2xl font-bold">Explore Collaboration Posts</h1>
       <div className="w-full flex gap-4 flex-wrap">
-        {posts.map((post: any) => (
+        {posts.map((post: Record<string, any>) => (
           <CollabCard
             key={post._id}
             id={post._id}
@@ -34,7 +34,7 @@ export default function ExploreCollabPosts() {
             postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}
             onApply={() => console.log("Apply to", post._id)}
             applicants={post.applicants}
-            currentUserId={user?._id!}
+            currentUserId={user?._id ?? ""}
           />
         ))}
       </div>

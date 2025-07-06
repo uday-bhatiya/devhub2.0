@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { useAuth } from "@/context/AuthContext"
 import Link from "next/link"
+import { AxiosError } from "axios"
 
 
 const formSchema = z.object({
@@ -50,8 +51,12 @@ export default function Page() {
             toast.success("Registration successful!");
             setUser(res.data.user);
             router.push("/user/edit-profile");
-        } catch (error: any) {
-            toast.error(error.response?.data?.error || "Registration failed");
+        } catch (error) {
+             if (error instanceof AxiosError) {
+        toast.error(error.response?.data?.error || "Login failed");
+    } else {
+        toast.error("Login failed");
+    }
         }
     }
 

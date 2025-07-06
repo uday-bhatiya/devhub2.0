@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation"
 import { useAuth } from "@/context/AuthContext"
 import { toast } from "sonner"
 import Link from "next/link"
+import { AxiosError } from "axios"
 
 const formSchema = z.object({
     email: z.string().email("Invalid email address").min(1, "Email is required"),
@@ -49,8 +50,12 @@ export default function Page() {
             // console.log(res)
             setUser(res.data.user);
             router.push("/home");
-        } catch (error: any) {
-            toast.error(error.response?.data?.error || "Login failed");
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                toast.error(error.response?.data?.error || "Login failed");
+            } else {
+                toast.error("Login failed");
+            }
         }
     }
 

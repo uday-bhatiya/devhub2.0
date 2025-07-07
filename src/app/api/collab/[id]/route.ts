@@ -2,11 +2,14 @@ import { NextRequest, NextResponse } from "next/server"
 import CollabPost from "@/models/CollabPost"
 import { connectDB } from "@/lib/db"
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(
+  request: NextRequest,
+  context: { params: { id: string } }
+) {
   try {
     await connectDB();
 
-    const post = await CollabPost.findById(params.id)
+    const post = await CollabPost.findById(context.params.id)
       .populate("creator", "fullName email avatar username")
       .populate("applicants.user", "fullName email avatar username")
       .populate({

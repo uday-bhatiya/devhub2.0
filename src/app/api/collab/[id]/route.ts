@@ -4,7 +4,7 @@ import { connectDB } from "@/lib/db"
 
 export async function GET(
   request: NextRequest,
-  context: { params: { id: string } }
+  context: any 
 ) {
   try {
     await connectDB();

@@ -5,15 +5,18 @@ import { NextResponse } from "next/server"
 
 export async function PATCH(
     req: Request,
-    { params }: { params: { id: string } }
+    context: any 
 ) {
     await connectDB()
+
+    const { id } = context.params;
+
     try {
-        const user = await getUserFromToken(req)
+        const user = await getUserFromToken()
         if (!user) return new NextResponse("Unauthorized", { status: 401 })
 
         const notification = await Notification.findByIdAndUpdate(
-            params.id,
+            id,
             { read: true },
             { new: true }
         )

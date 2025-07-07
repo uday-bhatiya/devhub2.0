@@ -6,7 +6,7 @@ import { NextResponse } from "next/server"
 export async function GET(req: Request) {
     await connectDB()
     try {
-        const user = await getUserFromToken(req)
+        const user = await getUserFromToken()
         if (!user) return new NextResponse("Unauthorized", { status: 401 })
 
         const notifications = await Notification.find({ recipient: user._id })

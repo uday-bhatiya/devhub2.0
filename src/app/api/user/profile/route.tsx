@@ -7,7 +7,7 @@ export async function PATCH(req: NextRequest) {
     await connectDB();
 
     try {
-        const user = await getUserFromToken(req);
+        const user = await getUserFromToken();
         if (!user) {
             return NextResponse.json({ message: "Unauthorized" }, { status: 401 })
         }

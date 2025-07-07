@@ -3,17 +3,19 @@ import Post from "@/models/Post"
 import { connectDB } from "@/lib/db"
 import { getUserFromToken } from "@/lib/auth"
 
-export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(req: NextRequest, context: any) {
     await connectDB();
 
+    const { id } = context.params;
+
     try {
-        const user = await getUserFromToken(req);
+        const user = await getUserFromToken();
         if (!user) return NextResponse.json({ message: "Unauthorized" }, { status: 401 })
 
         const { text } = await req.json()
         if (!text) return NextResponse.json({ message: "Comment cannot be empty" }, { status: 400 })
 
-        const post = await Post.findById(params.id)
+        const post = await Post.findById(id)
         if (!post) return NextResponse.json({ message: "Post not found" }, { status: 404 })
 
         post.comments.push({ user: user._id, text })

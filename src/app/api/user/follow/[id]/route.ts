@@ -4,17 +4,19 @@ import { User } from "@/models/User"
 import { connectDB } from "@/lib/db"
 import { getUserFromToken } from "@/lib/auth";
 
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(req: NextRequest, context: any) {
 
     await connectDB();
+     const { id } = context.params;
+    
     try {
-        const currentUser = await getUserFromToken(req);
+        const currentUser = await getUserFromToken();
 
         if (!currentUser) {
             return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
         }
 
-        const targetUserId = params.id;
+        const targetUserId = id;
         // console.log(targetUserId)
         // console.log(currentUser._id)
 

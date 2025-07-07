@@ -2,11 +2,12 @@ import { connectDB } from "@/lib/db"
 import { User } from "@/models/User";
 import { NextRequest, NextResponse } from "next/server"
 
-export async function GET(_: NextRequest, { params }: { params: { username: string } }) {
+export async function GET(_: NextRequest, context: any) {
     await connectDB();
+    const { username } = context.params;
 
     try {
-        const user = await User.findOne({ username: params.username })
+        const user = await User.findOne({ username: username })
         .populate("followers", "username fullName avatar")
         .populate("following", "username fullName avatar")
         .select("-password -__v");

@@ -3,15 +3,15 @@ import Post from "@/models/Post"
 import { connectDB } from "@/lib/db"
 import { getUserFromToken } from "@/lib/auth"
 
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(req: NextRequest, context: any) {
     await connectDB();
-    console.log(params.id)
+   const { id } = context.params;
 
     try {
-        const user = await getUserFromToken(req);
+        const user = await getUserFromToken();
         if (!user) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 
-        const post = await Post.findById(params.id);
+        const post = await Post.findById(id);
         if (!post) return NextResponse.json({ message: "Post not found" }, { status: 404 });
 
         const alreadyLiked = post.likes.includes(user._id);

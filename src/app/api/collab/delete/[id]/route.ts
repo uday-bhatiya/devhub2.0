@@ -5,17 +5,19 @@ import { NextRequest, NextResponse } from "next/server"
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  context: any
 ) {
   try {
     await connectDB();
 
-    const user = await getUserFromToken(req)
+        const { id } = context.params;
+
+    const user = await getUserFromToken()
     if (!user) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 })
     }
 
-    const post = await CollabPost.findById(params.id)
+    const post = await CollabPost.findById(id)
 
     if (!post) {
       return NextResponse.json({ message: "Post not found" }, { status: 404 })

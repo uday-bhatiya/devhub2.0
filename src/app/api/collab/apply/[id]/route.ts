@@ -3,18 +3,20 @@ import CollabPost from "@/models/CollabPost"
 import { getUserFromToken } from "@/lib/auth"
 import { connectDB } from "@/lib/db"
 
-export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(req: NextRequest, context: any ) {
   try {
     await connectDB();
 
-    const user = await getUserFromToken(req)
+    const { id } = context.params;
+
+    const user = await getUserFromToken()
     if (!user) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 })
     }
 
     const { message } = await req.json()
 
-    const post = await CollabPost.findById(params.id)
+    const post = await CollabPost.findById(id)
     if (!post) {
       return NextResponse.json({ message: "Post not found" }, { status: 404 })
     }

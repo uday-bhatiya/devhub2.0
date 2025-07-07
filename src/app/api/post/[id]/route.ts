@@ -2,11 +2,13 @@ import { connectDB } from "@/lib/db"
 import Post from "@/models/Post";
 import { NextRequest, NextResponse } from "next/server"
 
-export async function GET(_: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(_: NextRequest, context: any) {
     await connectDB();
 
+    const { id } = context.params;
+
     try {
-        const post = await Post.findById(params.id).populate("owner", "fullName avatar username")
+        const post = await Post.findById(id).populate("owner", "fullName avatar username")
             .populate({
                 path: "comments",
                 populate: {

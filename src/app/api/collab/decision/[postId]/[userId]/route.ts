@@ -4,12 +4,14 @@ import CollabPost from "@/models/CollabPost"
 import { NextRequest, NextResponse } from "next/server"
 
 export async function POST(req: NextRequest,
-  { params }: { params: { postId: string; userId: string } }
+  context: any
 ) {
   try {
     await connectDB();
 
-    const user = await getUserFromToken(req)
+    const { postId, userId } = context.params;
+
+    const user = await getUserFromToken()
     if (!user) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 })
     }
@@ -20,7 +22,7 @@ export async function POST(req: NextRequest,
       return NextResponse.json({ message: "Invalid status" }, { status: 400 })
     }
 
-    const post = await CollabPost.findById(params.postId)
+    const post = await CollabPost.findById(postId)
 
     if (!post) {
       return NextResponse.json({ message: "Post not found" }, { status: 404 })
@@ -31,7 +33,7 @@ export async function POST(req: NextRequest,
     }
 
     const applicant = post.applicants.find(
-      (a: { user: { toString: () => string; }; }) => a.user.toString() === params.userId
+      (a: { user: { toString: () => string; }; }) => a.user.toString() === userId
     )
 
     if (!applicant) {

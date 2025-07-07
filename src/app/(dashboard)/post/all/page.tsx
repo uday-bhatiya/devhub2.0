@@ -28,11 +28,11 @@ export default function ExploreCollabPosts() {
           <PostCard
             key={post._id}
             tags={post.tags}
-            id={post._id}
+            id={post._id || ""}
             title={post.title}
             description={post.description.slice(0, 100) + "..."}
             owner={post.owner?.fullName || "Anonymous"}
-            postedAt={formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}
+            postedAt={formatDistanceToNow(new Date(post.createdAt ?? ""), { addSuffix: true })}
           />
         ))}
       </div>

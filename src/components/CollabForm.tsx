@@ -38,7 +38,9 @@ const CollabForm = () => {
         try {
             const payload = {
                 ...values,
-                requiredSkills: values.requiredSkills.split(",").map(skill => skill.trim())
+                requiredSkills: values.requiredSkills.split(",").map(skill => skill.trim()),
+                _id: "", 
+                createdAt: new Date().toISOString()
             }
 
             await createCollabPost(payload);

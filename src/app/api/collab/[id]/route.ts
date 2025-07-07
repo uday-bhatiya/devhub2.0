@@ -9,7 +9,9 @@ export async function GET(
   try {
     await connectDB();
 
-    const post = await CollabPost.findById(context.params.id)
+    const { id } = context.params;
+
+    const post = await CollabPost.findById(id)
       .populate("creator", "fullName email avatar username")
       .populate("applicants.user", "fullName email avatar username")
       .populate({

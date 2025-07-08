@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌐 DevHub
 
-## Getting Started
+**DevHub** is a full-stack MERN + Next.js platform built for developers to connect, collaborate, and grow together. It allows users to showcase their projects, invite collaborators, apply to join teams, and engage through likes, comments, and follows — all in one place.
 
-First, run the development server:
+---
+
+## 📸 Demo
+
+> **Live URL:**
+>  [https://devhub2-0.vercel.app/](https://devhub2-0.vercel.app/)
+
+---
+
+## 📌 Features
+
+### ✅ Core Functionality
+- 🔐 User Authentication with JWT & HTTP-only Cookies
+- 👤 Profile creation, editing, and public user pages
+- 📝 Create two types of posts:  
+  - **Normal Posts** – showcase projects  
+  - **Collab Posts** – invite others to join and work together
+- 🤝 Apply to collaboration posts and manage applications (accept/reject)
+- 🧵 Like and comment on posts
+
+### 🧑‍🤝‍🧑 Social Features
+- 👁️ Public user profiles
+- ➕ Follow/Unfollow users
+- 📥 See others’ posts and collabs
+- 📎 Share project GitHub links
+
+### 📦 Tech Stack
+
+| Frontend        | Backend       | Database | Utilities |
+|----------------|---------------|----------|-----------|
+| Next.js (App Router) | Next.js API Routes | MongoDB Atlas | JWT Auth |
+| Tailwind CSS   | Mongoose      |          | Zod |
+| Shadcn UI      |               |          | React Hook Form |
+---
+
+## 💻 Local Setup
+
+### 1. Clone the repository
 
 ```bash
+git clone https://github.com/uday-bhatiya/devhub2.0
+cd collabconnect
+```
+### 2. Install dependencies
+```bash
+npm install
+```
+### 3. Create `.env.local`
+```bash
+MONGODB_URI=your_mongodb_uri
+JWT_SECRET=your_jwt_secret
+```
+### 4. Run development server
+```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Deployment
+***Frontend + API on Vercel***
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+>Connect GitHub repo
+>Set Environment Variablel
+>Deploy!
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📈 Future Improvements
+📱 Mobile Responsive Optimizations
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+📬 Real-time notifications (planned)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+🧠 Smart collaborator suggestions
 
-## Deploy on Vercel
+🔍 Advanced search and filter
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+🛡️ Admin moderation dashboard
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## ⭐ Show your support
+If you like this project, please ⭐️ this repo or consider sharing it with others!
+
+---
+
